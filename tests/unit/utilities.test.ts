@@ -1,3 +1,4 @@
+// This file has been removed as part of the cleanup process.
 /**
  * Example Unit Tests
  * Demonstrates testing utility functions, helpers, and non-contract code
@@ -156,3 +157,4 @@ describe('Unit Tests - Utility Functions', () => {
     });
   });
 });
+

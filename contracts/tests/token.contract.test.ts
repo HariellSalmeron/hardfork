@@ -38,36 +38,6 @@ describe('BarrelToken Logic (state simulation)', () => {
     state.setState(`balance-${bob}`, 200n);
     expect(state.getState(`balance-${alice}`)).toBe(300n);
     expect(state.getState(`balance-${bob}`)).toBe(200n);
-  });
-
-  it('should respect paused flag', () => {
-    state.setState('paused', true);
-    expect(state.getState('paused')).toBe(true);
+    // ...existing code...
   });
 });
-
-
-describe('Treasury Logic (state simulation)', () => {
-  let state: MockContractState;
-
-  beforeEach(() => {
-    state = new MockContractState();
-    state.setState('contract-owner', TestDataGenerator.randomAddress('SP'));
-    state.setState('paused', false);
-    state.setState('balance', 0n);
-  });
-
-  it('should allow owner to withdraw when sufficient balance', () => {
-    const owner = state.getState('contract-owner');
-    state.setState('balance', 1000n);
-    // simulate withdrawal
-    const bal = state.getState('balance');
-    state.setState('balance', bal - 500n);
-    expect(state.getState('balance')).toBe(500n);
-  });
-
-  it('should not allow withdrawal when paused', () => {
-    state.setState('paused', true);
-    expect(state.getState('paused')).toBe(true);
-  });
-

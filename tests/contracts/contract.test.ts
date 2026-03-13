@@ -221,3 +221,4 @@ describe('Contract Tests - Token Contract (SIP-010)', () => {
     });
   });
 });
+
