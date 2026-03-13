@@ -1,0 +1,781 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+#root {
+    background-color: #000000;
+}
+
+/* Header */
+.header {
+    background-color: #1a1a1a;
+    /* padding: 20px 0; */
+    border-bottom: 1px solid #333333;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.header-branding {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.header-logo {
+    width: 199px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffffff;
+    margin: 0;
+    display: inline;
+}
+
+.header-subtitle {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    margin: 0;
+    display: inline;
+    margin-left: 8px;
+}
+
+/* Hero Section */
+.hero {
+    /* min-height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    padding: 80px 20px;
+}
+
+.hero-content {
+    max-width: 1000px;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.hero-tagline {
+    font-size: 20px;
+    color: #d4af37;
+    margin-bottom: 40px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.hero-description {
+    font-size: 16px;
+    color: #cccccc;
+    margin-bottom: 50px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Buttons */
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.btn-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: #d4af37;
+    color: #000000;
+    border-color: #d4af37;
+}
+
+.btn-primary:hover {
+    background-color: #e5c158;
+    border-color: #e5c158;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #d4af37;
+    border-color: #d4af37;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+    border-color: #e5c158;
+    color: #e5c158;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+}
+
+/* Section 2 - The Liquid Ledger */
+.liquid-ledger {
+    padding: 80px 20px;
+    background-color: #000000;
+    position: relative;
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9));
+    z-index: 2;
+}
+
+.liquid-ledger-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    padding-top: 200px;
+}
+
+.section-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    margin-bottom: 15px;
+    font-weight: 500;
+    display: block;
+}
+
+.section-title {
+    font-size: clamp(36px, 8vw, 60px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.gold-text {
+    color: #d4af37;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: #cccccc;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.section-description {
+    font-size: 15px;
+    color: #cccccc;
+    margin-bottom: 60px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Status Cards */
+.status-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.status-card {
+    background-color: #0a0a0a;
+    padding: 40px;
+    text-align: left;
+    border: 1px solid #1a1a1a;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.status-card:hover {
+    border-color: #d4af37;
+    background-color: #0f0f0f;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.card-labels {
+    flex: 1;
+}
+
+.card-icon-box {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #d4af37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+}
+
+.card-icon-box img {
+    max-width: 40px;
+    height: auto;
+    object-fit: contain;
+}
+
+.status-badge {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-badge::before {
+    content: "●";
+    font-size: 6px;
+}
+
+.card-category {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+.card-category-sub {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #888888;
+    font-weight: 500;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.card-description {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.7;
+}
+
+/* Ecosystem Section */
+.ecosystem {
+    background-color: #000000;
+    /* padding: 80px 20px; */
+    position: relative;
+}
+
+.ecosystem-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    /* border: 2px dotted #d4af37; */
+    padding: 60px 40px;
+    border-radius: 8px;
+}
+
+.ecosystem-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    margin-bottom: 15px;
+    font-weight: 500;
+    display: block;
+}
+
+.ecosystem-title {
+    font-size: clamp(36px, 8vw, 60px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.ecosystem-subtitle {
+    font-size: 18px;
+    color: #cccccc;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.ecosystem-description {
+    font-size: 15px;
+    color: #cccccc;
+    margin-bottom: 60px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Token Cards */
+.token-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.token-card {
+    background-color: #0a0a0a;
+    padding: 40px;
+    text-align: left;
+    border: 1px solid #1a1a1a;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.token-card:hover {
+    border-color: #d4af37;
+    background-color: #0f0f0f;
+}
+
+.token-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.token-icon-circle {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #d4af37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.token-symbol {
+    font-size: 40px;
+    color: #d4af37;
+    font-weight: 700;
+}
+
+.token-icon-img {
+    max-width: 123px;
+    height: auto;
+    object-fit: contain;
+}
+
+.token-badge {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.token-badge::before {
+    content: "●";
+    font-size: 6px;
+}
+
+.token-name {
+    font-size: 32px;
+    font-weight: 700;
+    color: #d4af37;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.token-subtitle {
+    font-size: 14px;
+    color: #cccccc;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.token-description {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+       .header-logo {
+        width: 124px;
+        height: 28px;
+    }
+
+    .header-title {
+        font-size: 18px;
+    }
+
+    .header-subtitle {
+        font-size: 10px;
+    }
+
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .hero-title {
+        font-size: 42px;
+        margin-bottom: 25px;
+    }
+
+    .hero-tagline {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .hero-description {
+        font-size: 15px;
+        margin-bottom: 40px;
+    }
+
+    .hero-buttons {
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+    }
+
+    .liquid-ledger {
+        padding: 60px 20px;
+    }
+
+    .section-title {
+        font-size: 36px;
+        margin-bottom: 15px;
+    }
+
+    .section-subtitle {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    .section-description {
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+
+    .status-cards {
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .status-card {
+        padding: 30px;
+    }
+
+    .card-icon-box {
+        width: 70px;
+        height: 70px;
+    }
+
+    .card-icon-box img {
+        max-width: 40px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .card-description {
+        font-size: 13px;
+    }
+
+    .ecosystem {
+        padding: 60px 20px;
+    }
+
+    .ecosystem-container {
+        padding: 50px 30px;
+    }
+
+    .ecosystem-title {
+        font-size: 42px;
+    }
+
+    .token-cards {
+        gap: 30px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .token-card {
+        padding: 35px;
+    }
+
+    .token-icon-circle {
+        width: 70px;
+        height: 70px;
+    }
+
+    .token-symbol {
+        font-size: 35px;
+    }
+
+    .token-name {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 15px 0;
+    }
+
+    /* .header-logo {
+        width: 50px;
+        height: 10px;
+    } */
+
+    .header-title {
+        font-size: 160px;
+    }
+
+    .header-subtitle {
+        font-size: 9px;
+    }
+
+    .hero {
+        padding: 40px 15px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .hero-tagline {
+        font-size: 16px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 13px;
+    }
+
+    .liquid-ledger {
+        padding: 40px 15px;
+    }
+
+    .section-label {
+        font-size: 10px;
+        margin-bottom: 12px;
+    }
+
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .section-description {
+        font-size: 13px;
+        margin-bottom: 30px;
+    }
+
+    .status-cards {
+        gap: 20px;
+        grid-template-columns: 1fr;
+        margin-top: 30px;
+    }
+
+    .status-card {
+        padding: 25px;
+        text-align: left;
+    }
+
+    .card-top {
+        /* flex-direction: column; */
+        gap: 15px;
+    }
+
+    .card-icon-box {
+        width: 60px;
+        height: 60px;
+        align-self: flex-start;
+    }
+
+    .card-icon-box img {
+        max-width: 35px;
+    }
+
+    .status-badge {
+        font-size: 8px;
+        padding: 6px 12px;
+    }
+
+    .card-category {
+        font-size: 7px;
+    }
+
+    .card-category-sub {
+        font-size: 7px;
+    }
+
+    .card-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .card-description {
+        font-size: 12px;
+    }
+
+    .ecosystem {
+        padding: 40px 15px;
+    }
+
+    .ecosystem-container {
+        padding: 40px 20px;
+    }
+
+    .ecosystem-title {
+        font-size: 32px;
+    }
+
+    .ecosystem-subtitle {
+        font-size: 14px;
+    }
+
+    .ecosystem-description {
+        font-size: 13px;
+        margin-bottom: 40px;
+    }
+
+    .token-cards {
+        gap: 20px;
+        grid-template-columns: 1fr;
+    }
+
+    .token-card {
+        padding: 30px;
+    }
+
+    .token-icon-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .token-symbol {
+        font-size: 30px;
+    }
+
+    .token-name {
+        font-size: 24px;
+    }
+
+    .token-badge {
+        font-size: 10px;
+        padding: 6px 12px;
+    }
+}

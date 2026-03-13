@@ -1,0 +1,22 @@
+[project]
+name = "hardFork"
+authors = ["Team hardFork"]
+description = "Stacks blockchain project implementing SIP-009 (NFT) and SIP-010 (Token) standards"
+clarity-version = "2.1"
+requirements = []
+
+[contracts.barrel-nft]
+path = "contracts/barrel-nft.clar"
+depends_on = []
+
+[contracts.governance-token]
+path = "contracts/governance-token.clar"
+depends_on = []
+
+[contracts.treasury]
+path = "contracts/treasury.clar"
+depends_on = []
+
+[repl.analysis]
+# analysis passes (optional). Using a list previously caused a parsing error.
+# passes = ["check_checker", "type_checker", "cost_checker"]

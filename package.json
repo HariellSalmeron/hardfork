@@ -1,0 +1,37 @@
+{
+  "name": "hardfork",
+  "version": "0.1.0",
+  "description": "Stacks blockchain project implementing SIP-009 (NFT) and SIP-010 (Token) standards",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run check && npm run test:watch",
+    "test": "npm run check && npm run test:unit",
+    "test:unit": "vitest run",
+    "test:report": "vitest run -- --coverage --costs",
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
+    "check": "clarinet check",
+    "integrate": "clarinet integrate",
+    "console": "clarinet console"
+  },
+  "keywords": [
+    "stacks",
+    "clarity",
+    "nft",
+    "sip-009",
+    "token",
+    "sip-010",
+    "blockchain",
+    "smart-contracts"
+  ],
+  "author": "Team hardFork",
+  "license": "MIT",
+  "devDependencies": {
+    "@hirosystems/clarinet-sdk": "^3.6.0",
+    "@stacks/transactions": "^7.2.0",
+    "@types/node": "^24.4.0",
+    "chokidar-cli": "^3.0.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4",
+    "vitest-environment-clarinet": "^2.3.0"
+  }
+}
