@@ -69,8 +69,11 @@ function Landing() {
                 </div>
                 <span className="status-badge">IN PROGRESS</span>
               </div>
-              <div className="card-icon-box">
+              {/* <div className="card-icon-box">
                 <img src="/assets/images/Infrastructure.png" alt="Chain of Possession" />
+              </div> */}
+               <div className="card-icon-box">
+                <img src="/assets/images/Smartcontract.png" alt="Smart Contract Status" />
               </div>
               <h4 className="card-title">Infrastructure Status</h4>
               <p className="card-description">
