@@ -165,6 +165,106 @@ html, body {
     box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
 }
 
+/* Section 2 - The Governor's Office */
+.governors-office {
+    padding: 80px 20px;
+    background-color: #040404;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.governors-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.governors-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    margin-bottom: 15px;
+    font-weight: 500;
+    display: block;
+}
+
+.governors-title {
+    font-size: clamp(36px, 8vw, 60px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.governors-subtitle {
+    font-size: 18px;
+    color: #cccccc;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.governors-description {
+    font-size: 15px;
+    color: #cccccc;
+    margin-bottom: 60px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.governors-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.governors-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    padding: 40px 30px;
+    border-radius: 16px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.governors-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+    border-color: rgba(212, 175, 55, 0.45);
+}
+
+.governors-card-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: rgba(212, 175, 55, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.governors-card-icon img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.governors-card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.governors-card-text {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.7;
+}
+
 /* Section 2 - The Liquid Ledger */
 .liquid-ledger {
     padding: 80px 20px;
@@ -479,6 +579,337 @@ html, body {
     letter-spacing: 1px;
 }
 
+/* Story / Timeline */
+.story {
+    background-color: #000000;
+    padding: 80px 20px;
+}
+
+.story-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+}
+
+.story-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    margin-bottom: 15px;
+    font-weight: 500;
+    display: block;
+}
+
+.story-title {
+    font-size: clamp(36px, 8vw, 60px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 60px;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.timeline {
+    position: relative;
+    display: grid;
+    gap: 42px;
+    padding-top: 40px;
+    justify-items: center;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: rgba(212, 175, 55, 0.22);
+    z-index: 1;
+}
+
+.timeline-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 80px minmax(0, 1fr);
+    align-items: start;
+    width: 100%;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.14);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.55);
+    max-width: 520px;
+    width: 100%;
+}
+
+.timeline-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.timeline-node15year {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+}
+
+.timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 70%;
+    background: rgba(212, 175, 55, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 5px rgba(212, 175, 55, 0.12);
+}
+.timeline-dot15years {
+    width: 14px;
+    height: 14px;
+    border-radius: 70%;
+    background: rgba(212, 175, 55, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 5px rgba(212, 175, 55, 0.12);
+}
+.timeline-year {
+    font-size: 31px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: rgba(212, 175, 55, 0.12);
+    line-height: 1;
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+.timeline-15year {
+    font-size: 31px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: rgba(212, 175, 55, 0.12);
+    line-height: 1;
+    text-align: right;
+    white-space: nowrap;
+    padding-right: 15px;
+}
+@media (max-width: 980px) {
+    .timeline {
+        padding-top: 30px;
+    }
+
+    .timeline::before {
+        left: 72px;
+    }
+
+    .timeline-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+    }
+
+    .timeline-node {
+        order: 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: auto;
+        margin-left: 72px;
+    }
+
+    .timeline-node15year {
+        order: 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: auto;
+        margin-left: 65px;
+    }
+
+    .timeline-year,
+    .timeline-15year {
+        order: 0;
+        flex: 0 0 auto;
+        max-width: 140px;
+        font-size: 36px;
+        text-align: left;
+        margin: 0;
+        white-space: nowrap;
+        padding-left: 12px;
+    }
+
+    .timeline-row.reverse .timeline-year {
+        order: 1;
+        text-align: left;
+    }
+
+        .timeline-dot {
+        margin: 0;
+        margin-left: -7px;
+    }
+ .timeline-row.reverse .timeline-15year {
+        order: 1;
+        text-align: right;
+        padding-left: 0;
+        padding-right: 12px;
+    }
+    .timeline-card {
+        order: 1;
+        flex: 1 1 100%;
+        margin-left: 96px;
+        max-width: calc(100% - 96px);
+        padding: 24px;
+        margin-top: 16px;
+    }
+}
+.timeline-row.reverse {
+    grid-template-columns: minmax(0, 1fr) 80px minmax(0, 1fr);
+}
+
+.timeline-row.reverse .timeline-year {
+    text-align: left;
+}
+
+.timeline-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.14);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.55);
+    max-width: 520px;
+    width: 100%;
+}
+
+.timeline-card-tag {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.timeline-card-title {
+    font-size: 28px;
+    margin-bottom: 14px;
+    color: #ffffff;
+}
+
+.timeline-card-text {
+    font-size: 15px;
+    color: #cccccc;
+    line-height: 1.7;
+}
+
+/* Section 6 - FAQ */
+.faq {
+    background-color: #000000;
+    padding: 80px 20px;
+}
+
+.faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.faq-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    margin-bottom: 15px;
+    font-weight: 500;
+    display: block;
+}
+
+.faq-title {
+    font-size: clamp(36px, 8vw, 60px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.faq-list {
+    display: grid;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.14);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.faq-item.open {
+    border-color: rgba(212, 175, 55, 0.35);
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.4);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 18px 22px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-icon {
+    font-size: 18px;
+    color: rgba(212, 175, 55, 0.8);
+    transition: transform 0.25s ease;
+}
+
+.faq-item.open .faq-icon {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    padding: 0 22px;
+}
+
+.faq-item.open .faq-answer {
+    max-height: 240px;
+    padding: 16px 22px 22px;
+}
+
+.faq-answer p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #cccccc;
+}
+
 .token-subtitle {
     font-size: 14px;
     color: #cccccc;
@@ -582,6 +1013,22 @@ html, body {
 
     .card-description {
         font-size: 13px;
+    }
+
+    .governors-office {
+        padding: 60px 20px;
+    }
+
+    .governors-description {
+        margin-bottom: 40px;
+    }
+
+    .governors-cards {
+        gap: 25px;
+    }
+
+    .governors-card {
+        padding: 30px 24px;
     }
 
     .ecosystem {
@@ -729,6 +1176,22 @@ html, body {
 
     .card-description {
         font-size: 12px;
+    }
+
+    .governors-office {
+        padding: 40px 15px;
+    }
+
+    .governors-description {
+        margin-bottom: 30px;
+    }
+
+    .governors-cards {
+        gap: 20px;
+    }
+
+    .governors-card {
+        padding: 28px 22px;
     }
 
     .ecosystem {

@@ -4,15 +4,15 @@
   "description": "Stacks blockchain project implementing SIP-009 (NFT) and SIP-010 (Token) standards",
   "main": "index.js",
   "scripts": {
-     "dev": "npm run check && npm run test:watch",
-     "test": "npm run check && npm run test:unit",
-     "test:unit": "vitest run",
-     "test:report": "vitest run -- --coverage --costs",
-     "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
-     "check": "clarinet check",
-     "integrate": "clarinet integrate",
-     "console": "clarinet console",
-     "start": "cd frontend && npm run dev"
+    "dev": "cd frontend && npm run dev",
+    "start": "cd frontend && npm run dev",
+    "test": "npm run check && npm run test:unit",
+    "test:unit": "vitest run",
+    "test:report": "vitest run -- --coverage --costs",
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
+    "check": "clarinet check",
+    "integrate": "clarinet integrate",
+    "console": "clarinet console"
   },
   "keywords": [
     "stacks",

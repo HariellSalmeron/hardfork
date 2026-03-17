@@ -41,3 +41,4 @@ temp/
 # Build outputs
 build/
 .cache/
+.vercel
