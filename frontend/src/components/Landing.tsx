@@ -57,7 +57,7 @@ function Landing() {
           <p className="section-subtitle">Engineering the Future of Craft Spirits.</p>
           
           <p className="section-description">
-            We are currently in the Physical & Digital Build-out Phase. While our smart contracts are being finalized on the Stacks layer, our new production and aging facility is rising from the ground. We are bridging high-tech transparency with traditional heritage from day one.
+            We are currently in the <span style={{ fontWeight: 'bold' }}>Physical & Digital Build-out Phase.</span> While our smart contracts are being finalized on the Stacks layer, our new production and aging facility is rising from the ground. We are bridging high-tech transparency with traditional heritage from day one.
           </p>
 
           <div className="status-cards">
@@ -69,12 +69,10 @@ function Landing() {
                 </div>
                 <span className="status-badge">IN PROGRESS</span>
               </div>
-              {/* <div className="card-icon-box">
+              <div className="card-icon-box">
                 <img src="/assets/images/Infrastructure.png" alt="Chain of Possession" />
-              </div> */}
-               <div className="card-icon-box">
-                <img src="/assets/images/Smartcontract.png" alt="Smart Contract Status" />
               </div>
+              
               <h4 className="card-title">Infrastructure Status</h4>
               <p className="card-description">
                 New Distillery Construction located in South Carolina is underway. We are building our state-of-the-art production and aging facility, designed from the foundation for IoT-integrated barrel maturation monitoring.
@@ -193,7 +191,7 @@ function Landing() {
           <div className="timeline">
             <div className="timeline-row">
               <div className="timeline-card">
-                <div className="timeline-card-tag">BITCOIN ROOTS</div>
+                <div className="timeline-card-tag">2011 BITCOIN ROOTS</div>
                 <h3 className="timeline-card-title">Bitcoin Roots</h3>
                 <p className="timeline-card-text">
                   Our journey began in the early days of the Bitcoin movement. This legacy reflects our team's decade-plus resilience and pioneering mindset — native to the decentralized movement we are now applying to distillery operations.
@@ -213,24 +211,24 @@ function Landing() {
               <div className="timeline-node15year">
                 <div className="timeline-dot15years" />
               </div>
-
-              <div className="timeline-card">
-                <div className="timeline-card-tag">THE ACQUISITIONS</div>
-                <h3 className="timeline-card-title">The Acquisitions</h3>
-                <p className="timeline-card-text">
-                  Our foundation is secured by the strategic acquisition of the James River and Old Fourth Distillery assets. These historic resources provide the premium “Jumpstart” inventory that is currently being prepared for our ecosystem launch.
-                </p>
-              </div>
-            </div>
-
-            <div className="timeline-row">
-              <div className="timeline-card">
-                <div className="timeline-card-tag">OPERATIONAL FOUNDATION</div>
+      <div className="timeline-card">
+                <div className="timeline-card-tag timeline-card-tag-left">OPERATIONAL FOUNDATION</div>
                 <h3 className="timeline-card-title">The Tekna/Labrada Legacy</h3>
                 <p className="timeline-card-text">
                   With 15 years of leadership in industrial accountability, the Tekna and Labrada teams are bringing a proven standard of operational integrity and supply-chain transparency to the world of fine spirits.
                 </p>
               </div>
+            
+            </div>
+
+            <div className="timeline-row">
+          <div className="timeline-card">
+                <div className="timeline-card-tag">THE ACQUISITIONS</div>
+                <h3 className="timeline-card-title">The Acquisitions</h3>
+                <p className="timeline-card-text">
+                  Our foundation is secured by the strategic acquisition of the <span className="gold-text">James River </span><span>and </span><span className="gold-text">Old Fourth Distillery </span>  assets. These historic resources provide the premium “Jumpstart” inventory that is currently being prepared for our ecosystem launch.
+                </p>
+              </div>  
 
               <div className="timeline-node">
                 <div className="timeline-dot" />
@@ -259,7 +257,7 @@ function Landing() {
               >
                 <button type="button" className="faq-question">
                   {item.question}
-                  <span className="faq-icon">{activeIndex === index ? '−' : '+'}</span>
+                  <span className="faq-icon">{activeIndex === index ? '▲' : '▼'}</span>
                 </button>
                 <div className="faq-answer" aria-hidden={activeIndex !== index}>
                   <p>{item.answer}</p>

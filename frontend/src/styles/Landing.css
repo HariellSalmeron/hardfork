@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 /* General Styles */
 * {
     margin: 0;
@@ -6,10 +8,17 @@
 }
 
 html, body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: #000000;
     color: #ffffff;
     line-height: 1.6;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
 }
 
 #root {
@@ -42,8 +51,8 @@ html, body {
 }
 
 .header-logo {
-    width: 199px;
-    height: 80px;
+    width: 184px;
+    height: 58px;
     object-fit: contain;
 }
 
@@ -59,7 +68,7 @@ html, body {
 .header-subtitle {
     font-size: 13px;
     letter-spacing: 2px;
-    color: #d4af37;
+    color: #B8860B;
     margin: 0;
     display: inline;
     margin-left: 8px;
@@ -90,15 +99,15 @@ html, body {
 }
 
 .hero-tagline {
-    font-size: 20px;
-    color: #d4af37;
+    font-size: 24px;
+    color: #B8860B;
     margin-bottom: 40px;
     font-weight: 500;
     letter-spacing: 0.5px;
 }
 
 .hero-description {
-    font-size: 16px;
+    font-size: 18px;
     color: #cccccc;
     margin-bottom: 50px;
     line-height: 1.8;
@@ -139,30 +148,30 @@ html, body {
 }
 
 .btn-primary {
-    background-color: #d4af37;
+    background-color: #B8860B;
     color: #000000;
-    border-color: #d4af37;
+    border-color: #B8860B;
 }
 
 .btn-primary:hover {
-    background-color: #e5c158;
-    border-color: #e5c158;
+    background-color: #C9982C;
+    border-color: #C9982C;
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+    box-shadow: 0 8px 24px rgba(184, 134, 11, 0.25);
 }
 
 .btn-secondary {
     background-color: transparent;
-    color: #d4af37;
-    border-color: #d4af37;
+    color: #B8860B;
+    border-color: #B8860B;
 }
 
 .btn-secondary:hover {
-    background-color: rgba(212, 175, 55, 0.1);
-    border-color: #e5c158;
-    color: #e5c158;
+    background-color: rgba(184, 134, 11, 0.1);
+    border-color: #C9982C;
+    color: #C9982C;
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 8px 24px rgba(184, 134, 11, 0.15);
 }
 
 /* Section 2 - The Governor's Office */
@@ -181,14 +190,14 @@ html, body {
 .governors-label {
     font-size: 12px;
     letter-spacing: 2px;
-    color: #d4af37;
+    color: #B8860B;
     margin-bottom: 15px;
     font-weight: 500;
     display: block;
 }
 
 .governors-title {
-    font-size: clamp(36px, 8vw, 60px);
+    font-size: clamp(36px, 8vw, 56px);
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 20px;
@@ -197,14 +206,14 @@ html, body {
 }
 
 .governors-subtitle {
-    font-size: 18px;
+    font-size: 20px;
     color: #cccccc;
     margin-bottom: 30px;
     font-weight: 500;
 }
 
 .governors-description {
-    font-size: 15px;
+    font-size: 16px;
     color: #cccccc;
     margin-bottom: 60px;
     line-height: 1.8;
@@ -222,7 +231,7 @@ html, body {
 
 .governors-card {
     background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(212, 175, 55, 0.25);
+    border: 1px solid rgba(184, 134, 11, 0.25);
     padding: 40px 30px;
     border-radius: 16px;
     text-align: left;
@@ -232,14 +241,14 @@ html, body {
 .governors-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
-    border-color: rgba(212, 175, 55, 0.45);
+    border-color: rgba(184, 134, 11, 0.45);
 }
 
 .governors-card-icon {
     width: 72px;
     height: 72px;
     border-radius: 18px;
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(184, 134, 11, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -253,7 +262,7 @@ html, body {
 }
 
 .governors-card-title {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 10px;
@@ -305,20 +314,20 @@ html, body {
     text-align: center;
     position: relative;
     z-index: 3;
-    padding-top: 200px;
+    padding-top: 351px;
 }
 
 .section-label {
     font-size: 12px;
     letter-spacing: 2px;
-    color: #d4af37;
+    color: #B8860B;
     margin-bottom: 15px;
     font-weight: 500;
     display: block;
 }
 
 .section-title {
-    font-size: clamp(36px, 8vw, 60px);
+    font-size: clamp(36px, 8vw, 56px);
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 20px;
@@ -327,11 +336,12 @@ html, body {
 }
 
 .gold-text {
-    color: #d4af37;
+    color: #B8860B;
+    font-weight: bold;
 }
 
 .section-subtitle {
-    font-size: 18px;
+    font-size: 20px;
     color: #cccccc;
     margin-bottom: 30px;
     font-weight: 500;
@@ -365,7 +375,7 @@ html, body {
 }
 
 .status-card:hover {
-    border-color: #d4af37;
+    border-color: #B8860B;
     background-color: #0f0f0f;
 }
 
@@ -383,7 +393,7 @@ html, body {
 .card-icon-box {
     width: 80px;
     height: 80px;
-    border: 2px solid #d4af37;
+    border: 2px solid #B8860B;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -399,10 +409,10 @@ html, body {
 }
 
 .status-badge {
-    font-size: 11px;
+    font-size: 8px;
     letter-spacing: 1.5px;
-    color: #d4af37;
-    border: 1px solid #d4af37;
+    color: #B8860B;
+    border: 1px solid #B8860B;
     padding: 8px 16px;
     border-radius: 20px;
     font-weight: 600;
@@ -418,15 +428,15 @@ html, body {
 }
 
 .card-category {
-    font-size: 12px;
+    font-size: 9px;
     letter-spacing: 2px;
-    color: #d4af37;
+    color: #B8860B;
     font-weight: 600;
     margin-bottom: 5px;
     text-transform: uppercase;
 }
 .card-category-sub {
-    font-size: 11px;
+    font-size: 9px;
     letter-spacing: 1.5px;
     color: #888888;
     font-weight: 500;
@@ -436,7 +446,7 @@ html, body {
 
 
 .card-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 15px;
@@ -460,7 +470,7 @@ html, body {
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    /* border: 2px dotted #d4af37; */
+    /* border: 2px dotted #B8860B; */
     padding: 60px 40px;
     border-radius: 8px;
 }
@@ -468,14 +478,14 @@ html, body {
 .ecosystem-label {
     font-size: 12px;
     letter-spacing: 2px;
-    color: #d4af37;
+    color: #B8860B;
     margin-bottom: 15px;
     font-weight: 500;
     display: block;
 }
 
 .ecosystem-title {
-    font-size: clamp(36px, 8vw, 60px);
+    font-size: clamp(36px, 8vw, 56px);
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 20px;
@@ -484,14 +494,14 @@ html, body {
 }
 
 .ecosystem-subtitle {
-    font-size: 18px;
+    font-size: 20px;
     color: #cccccc;
     margin-bottom: 30px;
     font-weight: 500;
 }
 
 .ecosystem-description {
-    font-size: 15px;
+    font-size: 16px;
     color: #cccccc;
     margin-bottom: 60px;
     line-height: 1.8;
@@ -518,7 +528,7 @@ html, body {
 }
 
 .token-card:hover {
-    border-color: #d4af37;
+    border-color: #B8860B;
     background-color: #0f0f0f;
 }
 
@@ -533,7 +543,7 @@ html, body {
 .token-icon-circle {
     width: 80px;
     height: 80px;
-    border: 2px solid #d4af37;
+    border: 2px solid #B8860B;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -542,7 +552,7 @@ html, body {
 
 .token-symbol {
     font-size: 40px;
-    color: #d4af37;
+    color: #B8860B;
     font-weight: 700;
 }
 
@@ -553,10 +563,10 @@ html, body {
 }
 
 .token-badge {
-    font-size: 11px;
+    font-size: 8px;
     letter-spacing: 1.5px;
-    color: #d4af37;
-    border: 1px solid #d4af37;
+    color: #B8860B;
+    border: 1px solid #B8860B;
     padding: 8px 16px;
     border-radius: 20px;
     font-weight: 600;
@@ -572,9 +582,9 @@ html, body {
 }
 
 .token-name {
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 700;
-    color: #d4af37;
+    color: #B8860B;
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
@@ -596,14 +606,14 @@ html, body {
 .story-label {
     font-size: 12px;
     letter-spacing: 2px;
-    color: #d4af37;
+    color: #B8860B;
     margin-bottom: 15px;
     font-weight: 500;
     display: block;
 }
 
 .story-title {
-    font-size: clamp(36px, 8vw, 60px);
+    font-size: clamp(36px, 8vw, 56px);
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 60px;
@@ -615,7 +625,7 @@ html, body {
     position: relative;
     display: grid;
     gap: 42px;
-    padding-top: 40px;
+    /* padding-top: 40px; */
     justify-items: center;
 }
 
@@ -626,8 +636,8 @@ html, body {
     left: 50%;
     transform: translateX(-50%);
     width: 2px;
-    height: 100%;
-    background: rgba(212, 175, 55, 0.22);
+    height: 90%;
+    background: rgba(184, 134, 11, 0.22);
     z-index: 1;
 }
 
@@ -643,7 +653,7 @@ html, body {
 
 .timeline-card {
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(184, 134, 11, 0.14);
     border-radius: 16px;
     padding: 30px;
     text-align: left;
@@ -668,26 +678,28 @@ html, body {
 }
 
 .timeline-dot {
-    width: 14px;
-    height: 14px;
+    width: 8px;
+    height: 8px;
     border-radius: 70%;
-    background: rgba(212, 175, 55, 0.9);
+    background: rgba(184, 134, 11, 0.9);
     border: 2px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 0 5px rgba(212, 175, 55, 0.12);
+    box-shadow: 0 0 0 5px rgba(184, 134, 11, 0.12);
 }
 .timeline-dot15years {
-    width: 14px;
-    height: 14px;
+    width: 8px;
+    height: 8px;
     border-radius: 70%;
-    background: rgba(212, 175, 55, 0.9);
+    background: rgba(184, 134, 11, 0.9);
     border: 2px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 0 5px rgba(212, 175, 55, 0.12);
+    box-shadow: 0 0 0 5px rgba(184, 134, 11, 0.12);
 }
 .timeline-year {
+    align-self: center;
+    margin-top: -250px;
     font-size: 31px;
     font-weight: 900;
     letter-spacing: 1px;
-    color: rgba(212, 175, 55, 0.12);
+    color: rgba(184, 134, 11, 0.12);
     line-height: 1;
     text-align: left;
     white-space: nowrap;
@@ -695,10 +707,12 @@ html, body {
 
 
 .timeline-15year {
+    align-self: center;
+    margin-top: -220px;
     font-size: 31px;
     font-weight: 900;
     letter-spacing: 2px;
-    color: rgba(212, 175, 55, 0.12);
+    color: rgba(184, 134, 11, 0.12);
     line-height: 1;
     text-align: right;
     white-space: nowrap;
@@ -706,11 +720,14 @@ html, body {
 }
 @media (max-width: 980px) {
     .timeline {
-        padding-top: 30px;
+        padding-top: 42px;
+        transform: translateX(-20px);
     }
 
     .timeline::before {
-        left: 72px;
+        left: 60px;
+        top: 19px;
+        /* height: calc(100% + 12px); */
     }
 
     .timeline-row {
@@ -728,7 +745,7 @@ html, body {
         align-items: center;
         justify-content: flex-start;
         width: auto;
-        margin-left: 72px;
+        margin-left: 60px;
     }
 
     .timeline-node15year {
@@ -738,7 +755,7 @@ html, body {
         align-items: center;
         justify-content: flex-start;
         width: auto;
-        margin-left: 65px;
+        margin-left: 53px;
     }
 
     .timeline-year,
@@ -751,6 +768,7 @@ html, body {
         margin: 0;
         white-space: nowrap;
         padding-left: 12px;
+        margin-top: -42px;
     }
 
     .timeline-row.reverse .timeline-year {
@@ -760,12 +778,18 @@ html, body {
 
         .timeline-dot {
         margin: 0;
-        margin-left: -7px;
+        margin-left: -4px;
+        margin-top: -42px;
+    }
+    .timeline-dot15years {
+          margin: 0;
+        margin-left: 3px;
+        margin-top: -42px;
     }
  .timeline-row.reverse .timeline-15year {
         order: 1;
         text-align: right;
-        padding-left: 0;
+        padding-left: 13px;
         padding-right: 12px;
     }
     .timeline-card {
@@ -787,33 +811,48 @@ html, body {
 
 .timeline-card {
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(184, 134, 11, 0.14);
     border-radius: 16px;
     padding: 30px;
     text-align: left;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.55);
     max-width: 520px;
     width: 100%;
+    position: relative;
+    margin-bottom: 31px;
 }
 
 .timeline-card-tag {
-    font-size: 11px;
+    font-size: 9px;
     letter-spacing: 2px;
-    color: #d4af37;
+    color: #B8860B;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    position: absolute;
+    top: 10px;
+    /* right: 10px; */
+    border: 1px solid #B8860B;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+}
+
+.timeline-card-tag-left {
+    /* left: 10px; */
+    right: auto;
 }
 
 .timeline-card-title {
-    font-size: 28px;
-    margin-bottom: 14px;
+    font-size: 20px;
+    margin-bottom: 16px;
     color: #ffffff;
+    padding-top: 19px;
 }
 
 .timeline-card-text {
-    font-size: 15px;
+    font-size: 14px;
     color: #cccccc;
     line-height: 1.7;
+    
 }
 
 /* Section 6 - FAQ */
@@ -831,14 +870,14 @@ html, body {
 .faq-label {
     font-size: 12px;
     letter-spacing: 2px;
-    color: #d4af37;
+    color: #B8860B;
     margin-bottom: 15px;
     font-weight: 500;
     display: block;
 }
 
 .faq-title {
-    font-size: clamp(36px, 8vw, 60px);
+    font-size: clamp(36px, 8vw, 56px);
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 40px;
@@ -854,14 +893,14 @@ html, body {
 
 .faq-item {
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(184, 134, 11, 0.14);
     border-radius: 14px;
     overflow: hidden;
     transition: all 0.25s ease;
 }
 
 .faq-item.open {
-    border-color: rgba(212, 175, 55, 0.35);
+    border-color: rgba(184, 134, 11, 0.35);
     box-shadow: 0 18px 32px rgba(0, 0, 0, 0.4);
 }
 
@@ -882,13 +921,20 @@ html, body {
 }
 
 .faq-icon {
-    font-size: 18px;
-    color: rgba(212, 175, 55, 0.8);
-    transition: transform 0.25s ease;
+    font-size: 10px;
+    color: rgba(184, 134, 11, 0.8);
+    width: 28px;
+    height: 28px;
+    border: 2px solid rgba(184, 134, 11, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 
 .faq-item.open .faq-icon {
-    transform: rotate(180deg);
+    color: rgba(184, 134, 11, 0.8);
 }
 
 .faq-answer {
@@ -911,14 +957,14 @@ html, body {
 }
 
 .token-subtitle {
-    font-size: 14px;
+    font-size: 16px;
     color: #cccccc;
     margin-bottom: 20px;
     font-weight: 500;
 }
 
 .token-description {
-    font-size: 14px;
+    font-size: 12px;
     color: #cccccc;
     line-height: 1.7;
 }
@@ -926,8 +972,8 @@ html, body {
 /* Responsive Design */
 @media (max-width: 768px) {
        .header-logo {
-        width: 124px;
-        height: 28px;
+        width: 184px;
+        height: 58px;
     }
 
     .header-title {
@@ -984,7 +1030,7 @@ html, body {
     }
 
     .section-description {
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 40px;
     }
 
@@ -1087,18 +1133,17 @@ html, body {
     .hero {
         padding: 40px 15px;
     }
-
     .hero-title {
-        font-size: 28px;
+        font-size: 40px;
         margin-bottom: 20px;
     }
 
     .hero-tagline {
-        font-size: 16px;
+        font-size: 20px;
     }
 
     .hero-description {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .btn {
@@ -1116,17 +1161,17 @@ html, body {
     }
 
     .section-title {
-        font-size: 28px;
+        font-size: 32px;
         margin-bottom: 12px;
     }
 
     .section-subtitle {
-        font-size: 14px;
+        font-size: 18px;
         margin-bottom: 20px;
     }
 
     .section-description {
-        font-size: 13px;
+        font-size: 14px;
         margin-bottom: 30px;
     }
 
@@ -1147,26 +1192,27 @@ html, body {
     }
 
     .card-icon-box {
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
         align-self: flex-start;
+        margin-top: -20px;
     }
 
     .card-icon-box img {
-        max-width: 35px;
+        max-width: 32px;
     }
 
     .status-badge {
-        font-size: 8px;
+        font-size: 7px;
         padding: 6px 12px;
     }
 
     .card-category {
-        font-size: 7px;
+        font-size: 9px;
     }
 
     .card-category-sub {
-        font-size: 7px;
+        font-size: 9px;
     }
 
     .card-title {
@@ -1177,19 +1223,41 @@ html, body {
     .card-description {
         font-size: 12px;
     }
-
+.governors-label {
+    font-size: 10px;
+}
+.governors-title {
+    font-size: 32px;
+}
+.governors-subtitle {
+    font-size: 18px;
+}
     .governors-office {
         padding: 40px 15px;
     }
-
+ /* .timeline::before {
+        left: 60px;
+        top: -21px;
+        height: calc(100% + 12px);
+    } */
     .governors-description {
         margin-bottom: 30px;
+        font-size: 14px;
     }
 
     .governors-cards {
         gap: 20px;
     }
-
+.governors-card-title{
+     font-size: 16px;
+}
+.governors-card-text {
+    font-size: 12px;
+}
+.governors-card-icon {
+    width: 32px;
+    height: 32px;
+}
     .governors-card {
         padding: 28px 22px;
     }
@@ -1197,7 +1265,9 @@ html, body {
     .ecosystem {
         padding: 40px 15px;
     }
-
+.ecosystem-label {
+    font-size: 10px;
+}
     .ecosystem-container {
         padding: 40px 20px;
     }
@@ -1207,11 +1277,11 @@ html, body {
     }
 
     .ecosystem-subtitle {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .ecosystem-description {
-        font-size: 13px;
+        font-size: 14px;
         margin-bottom: 40px;
     }
 
@@ -1234,11 +1304,53 @@ html, body {
     }
 
     .token-name {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .token-badge {
-        font-size: 10px;
+        font-size: 7px;
         padding: 6px 12px;
     }
+    .story-label {
+    font-size: 10px;
+    }
+    .story-title {
+        font-size: 32px;
+    }
+    .timeline-year {
+    font-size: 32px;
+    text-align: left;
+    /* margin-top: -28px; */
+    }
+    
+    .timeline-card-tag {
+        font-weight: 400;
+        font-size: 7px;
+        line-height: 15px;
+        letter-spacing: 1px;
+        text-align: right;
+        top: 10px;
+        left: 29px;
+        right: auto;
+    }
+    .timeline-card-title {
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: #ffffff;
+    text-align: left;
+}
+    .timeline-card-text {
+        text-align: left;
+        font-size: 12px;
+}
+.timeline-row.reverse .timeline-15year{
+    font-size: 32px;
+}
+.faq-label {
+    font-size: 10px;
+}
+.faq-title {
+    font-size: 32px;
+}
 }
