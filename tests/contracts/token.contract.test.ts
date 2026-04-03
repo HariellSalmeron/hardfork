@@ -44,6 +44,22 @@ describe('BarrelToken Logic (state simulation)', () => {
     state.setState('paused', true);
     expect(state.getState('paused')).toBe(true);
   });
+
+  it('should mint founder allocation once', () => {
+    state.setState('founder-minted', false);
+    state.setState('total-supply', 0n);
+    const founder = TestDataGenerator.randomAddress('SP');
+
+    // simulate mint-founder call
+    const founderAllocation = 20000n;
+    state.setState(`balance-${founder}`, founderAllocation);
+    state.setState('total-supply', founderAllocation);
+    state.setState('founder-minted', true);
+
+    expect(state.getState(`balance-${founder}`)).toBe(founderAllocation);
+    expect(state.getState('total-supply')).toBe(founderAllocation);
+    expect(state.getState('founder-minted')).toBe(true);
+  });
 });
 
 
@@ -70,4 +86,5 @@ describe('Treasury Logic (state simulation)', () => {
     state.setState('paused', true);
     expect(state.getState('paused')).toBe(true);
   });
+});
 

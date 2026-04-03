@@ -296,12 +296,18 @@ Tracks all production batches and their metadata.
 
 ### Token Economics
 ```
+Founder Launch (Month 4):
+  Founder Barrels: 100 (founding members)
+  BarrelNFTs Minted: 100
+  Founder Tokens Minted: 20,000 (200 per barrel)
+
 Jumpstart Barrels (Month 5):
   Physical Barrels: 250 aged barrels (pre-purchased)
   BarrelNFTs Minted: 250
   Total Tokens Minted: 62,500 (250 per barrel)
   
   Distribution:
+    - Founder Allocation: 20,000 tokens (100 founder barrels)
     - Public Sales: 50,000 tokens (200 barrels)
       - Presale: 25,000 @ 7.5 STX = 187.5K STX
       - Public: 25,000 @ 10 STX = 250K STX

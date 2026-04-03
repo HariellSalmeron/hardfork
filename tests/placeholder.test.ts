@@ -1,3 +1,4 @@
+/*
  * Placeholder test to verify testing framework is working
  * This file can be deleted once real tests are added
  */

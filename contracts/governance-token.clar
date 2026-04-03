@@ -5,11 +5,18 @@
 (define-constant ERR-INSUFFICIENT-ALLOWANCE u102)
 (define-constant ERR-NON-POSITIVE u103)
 (define-constant ERR-CONTRACT-PAUSED u104)
+(define-constant ERR-FOUNDER-ALREADY-MINTED u105)
 
 ;; configuration
 (define-data-var contract-owner principal tx-sender)
 (define-data-var paused bool false)
 (define-data-var total-supply uint u0)
+(define-data-var founder-minted bool false)
+
+;; founder allocation
+(define-constant FOUNDER_BARRELS u100)
+(define-constant TOKENS_PER_FOUNDER_BARREL u200)
+(define-constant FOUNDER_TOKEN_ALLOCATION (* FOUNDER_BARRELS TOKENS_PER_FOUNDER_BARREL))
 
 ;; token metadata
 (define-constant TOKEN-NAME "GovernanceToken")
@@ -121,6 +128,13 @@
 
       (ok true))))
 
+;; read-only founder info
+(define-read-only (get-founder-minted)
+  (var-get founder-minted))
+
+(define-read-only (get-founder-allocation)
+  FOUNDER_TOKEN_ALLOCATION)
+
 ;; mint
 (define-public (mint (recipient principal) (amount uint))
   (begin
@@ -128,6 +142,16 @@
     (asserts! (> amount u0) (err ERR-NON-POSITIVE))
     (set-balance recipient (+ (get-balance recipient) amount))
     (var-set total-supply (+ (var-get total-supply) amount))
+    (ok true)))
+
+;; mint founder allocation (one-time)
+(define-public (mint-founder (recipient principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (asserts! (not (var-get founder-minted)) (err ERR-FOUNDER-ALREADY-MINTED))
+    (set-balance recipient (+ (get-balance recipient) FOUNDER_TOKEN_ALLOCATION))
+    (var-set total-supply (+ (var-get total-supply) FOUNDER_TOKEN_ALLOCATION))
+    (var-set founder-minted true)
     (ok true)))
 
 ;; burn
