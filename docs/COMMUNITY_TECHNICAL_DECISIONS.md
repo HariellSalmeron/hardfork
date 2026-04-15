@@ -69,7 +69,7 @@ We're building on **Stacks blockchain** using **Clarity smart contracts**.
 ## 3. Contract Architecture: The Three-Contract Model
 
 ### Decision
-We're building **three interconnected smart contracts**.  Note that although the NFT represents a specific barrel, the physical and legal ownership of the underlying barrel always resides with the production facility (Focus Distilling and Bottling); the token simply records rights and metadata on-chain.
+We're building **three interconnected smart contracts**.  Note that the NFT represents control and metadata rights associated with a barrel, while the physical and legal ownership of the underlying barrel always resides with the production facility (Focus Distilling and Bottling). The token records governance and redemption rights on-chain, not barrel ownership or barrel value backing.
 
 We're building **three interconnected smart contracts**:
 

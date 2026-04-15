@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Mulish:wght@400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  font-family: 'Inter', sans-serif;
+  background-color: #111;
+  color: #ffffff;
+  min-height: 100%;
+}
+
+.login-page {
+  min-height: 100vh;
+  background-color: rgb(50, 50, 50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-topbar {
+  width: 100%;
+  height: 38px;
+  background: #D9B150;
+}
+
+.login-content {
+  width: min(100%, 480px);
+  margin-top: 26px;
+  padding: 0 16px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.login-header {
+  text-align: center;
+}
+
+.login-logo {
+  width: clamp(150px, 30vw, 250px);
+  height: auto;
+  margin: 0 auto 8px;
+  display: block;
+}
+
+.login-label {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: #D9B150;
+  border: 1px solid #D9B150;
+  padding: 2px 10px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.login-title {
+  /* font-size: clamp(32px, 8vw, 48px); */
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-family: Gilda Display;
+    font-size: 56px;
+font-weight: normal;
+margin-top: -15px;
+} 
+
+.login-subtitle {
+  color: #ccc;
+  margin-bottom: 12px;
+   font-family: Mulish;
+    font-size: 16px;
+}
+.login-label-image{
+  margin-top: 40px;
+}
+.login-card {
+  position: relative;
+  width: 100%;
+  background: #1e1e1e;
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.45);
+  padding: 26px;
+}
+
+.login-card::before,
+.login-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(217, 181, 80, 0.95) 35%, rgba(217, 181, 80, 0.95) 65%, transparent 100%);
+  pointer-events: none;
+}
+
+.login-card::before {
+  top: -2px;
+}
+
+.login-card::after {
+  bottom: 1px;
+}
+
+.login-form {
+  display: grid;
+  gap: 16px;
+}
+
+.login-field span {
+  display: block;
+  margin-bottom: 8px;
+  color: #eee;
+  font-size: 14px;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 16px 13px;
+  background: #141414;
+  border: none;
+  border-radius: 0;
+  color: #fff;
+}
+
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon-wrapper::before,
+.input-icon-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(217, 181, 80, 0.95) 35%, rgba(217, 181, 80, 0.95) 65%, transparent 100%);
+  pointer-events: none;
+}
+
+.input-icon-wrapper::before {
+  top: -1;
+}
+
+.input-icon-wrapper::after {
+  bottom: 1px;
+}
+
+.input-icon-wrapper input {
+  padding-right: 42px;
+}
+
+.input-icon-wrapper input::placeholder,
+.input-icon-wrapper input::-webkit-input-placeholder,
+.input-icon-wrapper input:-ms-input-placeholder,
+.input-icon-wrapper input::-ms-input-placeholder,
+.input-icon-wrapper input::-moz-placeholder {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #bfbfbf;
+  opacity: 1;
+}
+
+.input-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.login-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #ccc;
+  font-family: 'Mulish', sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.login-remember input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #D9B150;
+}
+
+.login-forgot {
+  display: inline-flex;        /* 👈 change this */
+  align-items: center;         /* 👈 centers arrow vertically */
+
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Mulish', sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+
+  margin: 12px 0 0 auto;
+  justify-content: flex-end;   /* 👈 keeps it right-aligned */
+}
+
+.login-forgot .arrow {
+  font-size: 1.5em;
+  margin-left: 8px;
+  margin-top: -2px;
+  font-weight: 700;
+  display: inline-blockSS ;
+  transform: scaleX(0.6); /* squashes the width horizontally */
+}
+
+
+.login-button {
+  width: 100%;
+  background: #D9B150;
+  color: #111;
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  border: none;
+  padding: 12px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-footer {
+  color: #ffffff;
+  font-family: 'Mulish', sans-serif;
+  font-family: bold;
+  font-size: 16px;
+  margin-top: 100px;
+}
+
+@media (max-width: 520px) {
+  .login-content { width: calc(100% - 32px); }
+  .login-topbar { height: 30px; }
+  .login-logo { width: 150px; }
+}

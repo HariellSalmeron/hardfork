@@ -2,11 +2,13 @@
 
 ## Project Overview
 
-**Hard Fork Distillery** is a craft spirits company creating on‑chain control and governance mechanisms for barrel production on the Stacks blockchain. Our architecture bridges physical barrel aging with digital asset rights through SIP‑009 NFTs (BarrelNFTs) and SIP‑010 governance tokens, while legal title to the barrels remains with the production facility.
+**Hard Fork Distillery** is a craft spirits company creating on‑chain control and governance mechanisms for barrel production on the Stacks blockchain. Our architecture bridges physical barrel aging with digital asset rights through SIP‑009 NFTs (BarrelNFTs) and SIP‑010 governance tokens. Hard Fork retains operational control over production, aging, bottling, and distribution, while legal title to the barrels remains with the production facility.
 
-**Legal Disclaimer:**  At no time will Hard Fork tokenize the *legal ownership* of any barrel. Doing so is expressly prohibited by law. The smart contracts and tokens issued by Hard Fork represent governance rights, control over production/bottling decisions, and the ability to redeem bottles — they do not convey, imply, or vest any title or ownership in the physical barrels themselves.
+**Legal Disclaimer:**  At no time will Hard Fork tokenize the *legal ownership* of any barrel. Doing so is expressly prohibited by law. The smart contracts and tokens issued by Hard Fork represent governance rights, production and bottling control decisions, and the ability to redeem bottled product — they do not convey, imply, or vest any title or ownership in the physical barrels themselves.
 
-**Core Mission**: Tokenize craft whiskey production, enabling distributed *control* over barrel production and governance via blockchain while managing physical production operations.  The underlying barrel assets remain legally owned by the production facility (Focus Distilling and Bottling); tokens and NFTs grant rights and privileges defined by the smart contracts but do not transfer title to the physical barrels.
+**Core Mission**: Tokenize craft whiskey production, enabling distributed *control* over production and governance via blockchain while managing physical production operations.  The underlying barrel assets remain legally owned by the production facility (Focus Distilling and Bottling); tokens and NFTs grant rights and privileges defined by the smart contracts but do not transfer title to the physical barrels.
+
+**Token Economics:** Governance token value is designed to float with bottled whiskey market value, not with barrel value. Holders may exchange tokens for bottled product when bottles are released.
 
 ## System Architecture
 

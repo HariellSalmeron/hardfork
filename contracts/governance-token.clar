@@ -1,4 +1,7 @@
 ;; GovernanceToken - SIP010
+;; This contract issues governance tokens representing voting rights and bottled product redemption value.
+;; These tokens are not backed by the physical barrel's legal title or barrel value.
+;; The value of these governance tokens is intended to float with the bottled whiskey product.
 
 (define-constant ERR-UNAUTHORIZED u100)
 (define-constant ERR-INSUFFICIENT-BALANCE u101)
