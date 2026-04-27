@@ -29,6 +29,9 @@
 (define-data-var paused bool false)
 (define-data-var production-facility principal tx-sender) ;; Focus Distilling and Bottling retains legal title to physical barrels
 
+(define-data-var authorized-minter (optional principal) none)
+(define-data-var next-instrument-id uint u1)
+
 (define-map token-owner {id: uint} {owner: principal})
 (define-map token-approvals {id: uint} {approved: principal})
 
@@ -138,7 +141,7 @@
       uri: (string-utf8 256)
     }))
   (begin
-    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (asserts! (or (is-owner tx-sender) (is-eq (some tx-sender) (var-get authorized-minter))) (err ERR-UNAUTHORIZED))
     (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
     (asserts! (not (token-exists? instrument-id)) (err ERR-INVALID-METADATA))
 
@@ -220,5 +223,57 @@
         (merge current-metadata {
           location: new-location,
           age-statement: new-age-statement
+        }))
+      (ok true))))
+
+;; set authorized minter
+(define-public (set-authorized-minter (minter principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set authorized-minter (some minter))
+    (ok true)))
+
+;; mint function 
+(define-public (mint (controller principal) (batch-id (string-utf8 256)) (distillery (string-utf8 256)) (spirit-type (string-utf8 256)) (age uint) (proof uint) (location (string-utf8 256)) (uri (string-utf8 256)))
+  (let ((instrument-id (var-get next-instrument-id)))
+    (begin
+      (asserts! (or (is-owner tx-sender) (is-eq (some tx-sender) (var-get authorized-minter))) (err ERR-UNAUTHORIZED))
+      (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
+      (try! (mint-instrument instrument-id batch-id controller {
+        distillery: distillery,
+        spirit-type: spirit-type,
+        age-statement: age,
+        entry-proof: proof,
+        fill-date: u0,
+        location: location,
+        uri: uri
+      }))
+      (var-set next-instrument-id (+ instrument-id u1))
+      (ok instrument-id))))
+
+;; transfer with from and to
+(define-public (transfer-from (barrel-id uint) (from principal) (to principal))
+  (begin
+    (asserts! (is-eq from tx-sender) (err ERR-UNAUTHORIZED))
+    (try! (transfer barrel-id to))
+    (ok true)))
+
+;; burn alias
+(define-public (burn (barrel-id uint))
+  (burn-instrument barrel-id))
+
+;; get-metadata alias
+(define-read-only (get-metadata (barrel-id uint))
+  (get-instrument-metadata barrel-id))
+
+;; update-location only
+(define-public (update-location (barrel-id uint) (new-location (string-utf8 256)))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (asserts! (token-exists? barrel-id) (err ERR-NON-EXISTENT-TOKEN))
+    (let ((current-metadata (unwrap! (get-instrument-metadata barrel-id) (err ERR-NON-EXISTENT-TOKEN))))
+      (map-set instrument-metadata {instrument-id: barrel-id}
+        (merge current-metadata {
+          location: new-location
         }))
       (ok true))))

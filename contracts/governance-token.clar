@@ -15,11 +15,15 @@
 (define-data-var paused bool false)
 (define-data-var total-supply uint u0)
 (define-data-var founder-minted bool false)
+(define-data-var authorized-minter (optional principal) none)
 
 ;; founder allocation
 (define-constant FOUNDER_BARRELS u100)
 (define-constant TOKENS_PER_FOUNDER_BARREL u200)
 (define-constant FOUNDER_TOKEN_ALLOCATION (* FOUNDER_BARRELS TOKENS_PER_FOUNDER_BARREL))
+
+;; barrel allocation
+(define-constant TOKENS_PER_BARREL u25000000000) ;; 250 * 10^8
 
 ;; token metadata
 (define-constant TOKEN-NAME "GovernanceToken")
@@ -141,7 +145,7 @@
 ;; mint
 (define-public (mint (recipient principal) (amount uint))
   (begin
-    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (asserts! (or (is-owner tx-sender) (is-eq (some tx-sender) (var-get authorized-minter))) (err ERR-UNAUTHORIZED))
     (asserts! (> amount u0) (err ERR-NON-POSITIVE))
     (set-balance recipient (+ (get-balance recipient) amount))
     (var-set total-supply (+ (var-get total-supply) amount))
@@ -166,6 +170,21 @@
       (set-balance tx-sender (- bal amount))
       (var-set total-supply (- (var-get total-supply) amount))
       (ok true))))
+
+;; set authorized minter
+(define-public (set-authorized-minter (minter principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set authorized-minter (some minter))
+    (ok true)))
+
+;; mint for barrel (mints 250 * 10^8 tokens)
+(define-public (mint-for-barrel (recipient principal))
+  (begin
+    (asserts! (or (is-owner tx-sender) (is-eq (some tx-sender) (var-get authorized-minter))) (err ERR-UNAUTHORIZED))
+    (set-balance recipient (+ (get-balance recipient) TOKENS_PER_BARREL))
+    (var-set total-supply (+ (var-get total-supply) TOKENS_PER_BARREL))
+    (ok true)))
 
 ;; delegation
 (define-public (delegate (delegatee principal))

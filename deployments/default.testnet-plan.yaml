@@ -9,24 +9,24 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: barrel-nft-v2
+            contract-name: barrel-nft-v23
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 88530
             path: "contracts\\barrel-nft.clar"
             anchor-block-only: true
-            clarity-version: 1
+            clarity-version: 2
         - contract-publish:
-            contract-name: governance-token-v2
+            contract-name: governance-token-v23
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 58750
             path: "contracts\\governance-token.clar"
             anchor-block-only: true
-            clarity-version: 1
+            clarity-version: 2
         - contract-publish:
-            contract-name: treasury-v2
+            contract-name: treasury-v23
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 19840
             path: "contracts\\treasury.clar"
             anchor-block-only: true
-            clarity-version: 1
+            clarity-version: 2
       epoch: "2.05"

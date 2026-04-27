@@ -3,7 +3,29 @@ name = "devnet"
 
 [devnet]
 bitcoin_controller_enabled = false
-orchestrator_port = 20446
+orchestrator_port = 20448
+
+[[bitcoin]]
+start_at_cycle = 1
+duration = 10
+wallet = "wallet_1"
+slots = 2
+btc_address = "mr1iPkD9N3RJZZxXRk7xF9d36gffa6exNC"
+
+[[bitcoin]]
+start_at_cycle = 1
+duration = 10
+wallet = "wallet_2"
+slots = 2
+btc_address = "muYdXKmX9bByAueDe6KFfHd5Ff1gdN9ErG"
+
+[[bitcoin]]
+start_at_cycle = 1
+duration = 10
+wallet = "wallet_3"
+slots = 2
+btc_address = "mvZtbibDAAA3WLpY7zXXFqRa3T4XSknBX7"
 
 [accounts.deployer]
 mnemonic = "twice kind fence tip hidden tilt action fragile skin nothing glory cousin green tomorrow spring wrist shed math olympic multiply hip blue scout claw"
+initial_balance = 100000000000

@@ -11,21 +11,28 @@ plan:
         - contract-publish:
             contract-name: barrel-nft
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 72980
+            cost: 110040
             path: "contracts\\barrel-nft.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
             contract-name: governance-token
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 55880
+            cost: 66830
             path: "contracts\\governance-token.clar"
+            anchor-block-only: true
+            clarity-version: 1
+        - contract-publish:
+            contract-name: production-batch
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 98270
+            path: "contracts\\production-batch.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
             contract-name: treasury
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 19840
+            cost: 53760
             path: "contracts\\treasury.clar"
             anchor-block-only: true
             clarity-version: 1

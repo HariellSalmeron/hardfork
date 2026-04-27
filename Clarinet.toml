@@ -3,6 +3,10 @@ name = "hardfork"
 requirements = []
 cache_dir = "./.cache"
 
+[accounts.testnet-deployer]
+mnemonic = "sell invite acquire kitten bamboo drastic jelly vivid peace spawn twice guilt pave pen praise pork crisp unite giggle laundry steel canvas door creek thunder"
+derivation = "m/44'/5757'/0'/0/0"
+
 [contracts.barrel-nft]
 path = "contracts/barrel-nft.clar"
 
@@ -11,3 +15,6 @@ path = "contracts/governance-token.clar"
 
 [contracts.treasury]
 path = "contracts/treasury.clar"
+
+[contracts.production-batch]
+path = "contracts/production-batch.clar"
