@@ -131,7 +131,7 @@
               recipient: recipient,
               description: description,
               proposed-by: tx-sender,
-              proposed-block: block-height
+              proposed-block: u0
             })
           (var-set next-nonce (+ nonce u1))
           (ok nonce))))))

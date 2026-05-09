@@ -154,7 +154,7 @@
           treasury-allocation: treasury-tokens,
           barrel-ids: (list),
           minting-complete: false,
-          created-at: block-height,
+          created-at: u0,
           created-by: tx-sender
         })
 
@@ -165,7 +165,7 @@
           spirit-type: spirit-type,
           age-statement: age-statement,
           entry-proof: entry-proof,
-          fill-date: block-height,
+          fill-date: u0,
           location: location,
           uri: uri
         })

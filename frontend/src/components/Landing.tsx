@@ -1,8 +1,8 @@
 ﻿import '../styles/Landing.css'
 
-function Landing({ onNavigate }: { onNavigate?: () => void }) {
+function Landing() {
   return (
-    <div className="landing-click-capture" onClick={onNavigate}>
+    <div className="landing-click-capture">
       <header className="header">
         <div className="header-content">
           <div className="header-branding">

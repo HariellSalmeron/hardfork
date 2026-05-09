@@ -18,3 +18,12 @@ path = "contracts/treasury.clar"
 
 [contracts.production-batch]
 path = "contracts/production-batch.clar"
+
+[contracts.presale]
+path = "contracts/presale.clar"
+
+[contracts.public-sale]
+path = "contracts/public-sale.clar"
+
+[contracts.batch-registry]
+path = "contracts/batch-registry.clar"
