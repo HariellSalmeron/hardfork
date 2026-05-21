@@ -16,6 +16,13 @@ plan:
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
+            contract-name: batch-registry
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 32120
+            path: "contracts\\batch-registry.clar"
+            anchor-block-only: true
+            clarity-version: 1
+        - contract-publish:
             contract-name: governance-token
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 66830
@@ -23,16 +30,30 @@ plan:
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
+            contract-name: presale
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 38450
+            path: "contracts\\presale.clar"
+            anchor-block-only: true
+            clarity-version: 1
+        - contract-publish:
             contract-name: production-batch
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 98270
+            cost: 98070
             path: "contracts\\production-batch.clar"
+            anchor-block-only: true
+            clarity-version: 1
+        - contract-publish:
+            contract-name: public-sale
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 23360
+            path: "contracts\\public-sale.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
             contract-name: treasury
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 53760
+            cost: 53660
             path: "contracts\\treasury.clar"
             anchor-block-only: true
             clarity-version: 1

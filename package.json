@@ -8,7 +8,7 @@
     "start": "cd frontend && npm run dev",
     "build": "cd frontend && npm run build",
     "vercel-build": "npm run build",
-    "deploy": "npx vercel --prod --confirm",
+    "deploy": "npx vercel --prod --yes",
     "test": "npm run check && npm run test:unit",
     "test:unit": "vitest run",
     "test:report": "vitest run -- --coverage --costs",

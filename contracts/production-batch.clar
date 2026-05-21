@@ -24,6 +24,13 @@
 (define-data-var paused bool false)
 (define-data-var next-batch-id uint u0)
 
+;; Linked contract addresses
+(define-data-var barrel-nft-contract (optional principal) none)
+(define-data-var governance-token-contract (optional principal) none)
+(define-data-var presale-contract (optional principal) none)
+(define-data-var public-sale-contract (optional principal) none)
+(define-data-var treasury-contract (optional principal) none)
+
 ;; Batch metadata storage
 (define-map batches {batch-id: uint}
   {
@@ -34,7 +41,7 @@
     presale-allocation: uint,             ;; Tokens reserved for presale
     public-allocation: uint,              ;; Tokens reserved for public sale
     treasury-allocation: uint,            ;; Tokens reserved for treasury
-    barrel-ids: (list 1000 uint),         ;; List of minted barrel IDs
+
     minting-complete: bool,               ;; Finality flag
     created-at: uint,                     ;; Block height of creation
     created-by: principal                 ;; Batch creator
@@ -76,6 +83,9 @@
 (define-read-only (get-batch-info (batch-id uint))
   (map-get? batches {batch-id: batch-id}))
 
+(define-read-only (get-batch (batch-id uint))
+  (map-get? batches {batch-id: batch-id}))
+
 (define-read-only (get-barrel-template (batch-id uint))
   (map-get? barrel-metadata-template {batch-id: batch-id}))
 
@@ -109,6 +119,37 @@
   (begin
     (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
     (var-set paused false)
+    (ok true)))
+
+;; Set linked contract addresses
+(define-public (set-barrel-nft-contract (addr principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set barrel-nft-contract (some addr))
+    (ok true)))
+
+(define-public (set-governance-token-contract (addr principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set governance-token-contract (some addr))
+    (ok true)))
+
+(define-public (set-presale-contract (addr principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set presale-contract (some addr))
+    (ok true)))
+
+(define-public (set-public-sale-contract (addr principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set public-sale-contract (some addr))
+    (ok true)))
+
+(define-public (set-treasury-contract (addr principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set treasury-contract (some addr))
     (ok true)))
 
 ;; Core batch creation function
@@ -152,7 +193,6 @@
           presale-allocation: presale-tokens,
           public-allocation: public-tokens,
           treasury-allocation: treasury-tokens,
-          barrel-ids: (list),
           minting-complete: false,
           created-at: u0,
           created-by: tx-sender
@@ -246,6 +286,38 @@
 
       (ok true)
     )))
+
+;; Record a barrel as minted (called per barrel after NFT mint)
+(define-public (record-barrel-minted (batch-id uint) (barrel-id uint))
+  (let
+    (
+      (batch (unwrap! (map-get? batches {batch-id: batch-id}) (err ERR-BATCH-NOT-FOUND)))
+      (status (unwrap! (map-get? batch-minting-status {batch-id: batch-id}) (err ERR-BATCH-NOT-FOUND)))
+    )
+    (begin
+      (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
+      (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+      (asserts! (not (get minting-complete batch)) (err ERR-BATCH-ALREADY-COMPLETE))
+      (asserts! (< (get barrels-minted status) (get barrel-count batch)) (err ERR-INVALID-PARAMS))
+
+      (map-set batch-minting-status {batch-id: batch-id}
+        {
+          barrels-minted: (+ (get barrels-minted status) u1),
+          tokens-minted: (get tokens-minted status)
+        })
+
+      (ok true)
+    )))
+
+;; Finalize token minting (validates all barrels minted and mints governance tokens)
+(define-public (finalize-token-mint (batch-id uint))
+  ;; Placeholder implementation; replace with actual token minting logic.
+  (ok true))
+
+;; Activate sales for a batch (opens presale and public sale)
+(define-public (activate-sales (batch-id uint))
+  ;; Placeholder implementation; replace with actual sales activation logic.
+  (ok true))
 
 ;; Get allocation breakdown for a batch
 (define-read-only (get-batch-allocation (batch-id uint))

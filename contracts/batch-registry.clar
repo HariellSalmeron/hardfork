@@ -73,7 +73,7 @@
     (map-set batches {batch-id: batch-id}
       {
         metadata: metadata,
-        minting-date: block-height,
+        minting-date: u0,
         barrels-complete: u0,
         barrel-count: barrel-count
       })
@@ -90,7 +90,7 @@
       (map-set batches {batch-id: batch-id}
         {
           metadata: (get metadata entry),
-          minting-date: (if (is-eq (get minting-date entry) u0) block-height (get minting-date entry)),
+          minting-date: (get minting-date entry),
           barrels-complete: (+ (get barrels-complete entry) u1),
           barrel-count: (get barrel-count entry)
         })

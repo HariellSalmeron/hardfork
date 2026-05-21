@@ -51,7 +51,7 @@ function Landing() {
         <div className="liquid-ledger-grid">
           <div className="liquid-ledger-image" aria-hidden="true" />
           <div className="liquid-ledger-content">
-            <p className="section-label-text">THE LIQUID LEDGER</p>
+            <p className="section-label-text">PROOF OF PROCESS</p>
             <h2 className="section-title">Engineering The <br />Future Of Craft Spirits.</h2>
             <p className="section-subtitle">We are currently in the Physical & Digital Build-out Phase. While our smart contracts are being finalized on the Stacks layer, our new production and aging facility is rising from the ground.We are bridging high-tech transparency with traditional heritage from day one.</p>
            
@@ -72,7 +72,7 @@ function Landing() {
             </div>
 
             <div className="story-item">
-              <h3 className="story-subtitle">The Tekna/Labrada Legacy</h3>
+              <h3 className="story-subtitle">The Tekna/Arctic Systems Legacy</h3>
               <p className="story-text">With 15 years of leadership in industrial accountability, the Tekna and Labrada teams are bringing a proven standard of operational integrity and supply-chain transparency to the world of fine spirits.</p>
             </div>
 
