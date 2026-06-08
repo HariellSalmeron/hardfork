@@ -249,3 +249,85 @@ margin-top: -15px;
   .login-topbar { height: 30px; }
   .login-logo { width: 150px; }
 }
+
+/* Error and Success Messages */
+.login-error {
+  background-color: #3d1515;
+  color: #ff6b6b;
+  padding: 12px;
+  border-radius: 4px;
+  border-left: 4px solid #ff6b6b;
+  font-family: 'Mulish', sans-serif;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.login-success {
+  background-color: #1b3d2b;
+  color: #51cf66;
+  padding: 12px;
+  border-radius: 4px;
+  border-left: 4px solid #51cf66;
+  font-family: 'Mulish', sans-serif;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+/* Back Button for Forgot Password */
+.login-back-button {
+  width: 100%;
+  background: #424242;
+  color: #ffffff;
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  border: none;
+  padding: 12px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.login-back-button:hover {
+  background-color: #505050;
+}
+
+.login-button:disabled,
+.login-back-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-button:hover:not(:disabled),
+.login-back-button:hover:not(:disabled) {
+  background-color: #e5c15f;
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+}
+
+.password-toggle:hover {
+  opacity: 1;
+}
+
+.login-card-title {
+  font-family: 'Mulish', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
