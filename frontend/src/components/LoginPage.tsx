@@ -89,7 +89,7 @@ function LoginPage({ onNavigate }: LoginPageProps) {
           <p className="login-subtitle">Enter your email and password correctly.</p>
         </div>
 
-        <div className="login-card">
+        <div className={`login-card${showForgotPassword ? ' forgot-mode' : ''}`}>
           {showForgotPassword ? (
             <form className="login-form" onSubmit={handleForgotPassword}>
               <h2 className="login-card-title">Reset Password</h2>

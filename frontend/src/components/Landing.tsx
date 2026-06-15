@@ -1,12 +1,21 @@
 ﻿import '../styles/Landing.css'
 
-function Landing() {
+interface LandingProps {
+  onLoginClick: () => void
+}
+
+function Landing({ onLoginClick }: LandingProps) {
   return (
     <div className="landing-click-capture">
       <header className="header">
         <div className="header-content">
           <div className="header-branding">
           </div>
+          <nav className="header-nav">
+            <button type="button" className="header-nav-link" onClick={onLoginClick}>
+              Login
+            </button>
+          </nav>
         </div>
       </header>
 

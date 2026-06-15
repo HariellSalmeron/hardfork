@@ -89,6 +89,21 @@ margin-top: -15px;
   padding: 26px;
 }
 
+.login-card.forgot-mode {
+  background: transparent;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.login-card.forgot-mode .login-form {
+  background: transparent;
+}
+
+.login-card.forgot-mode .login-field input {
+  background: #141414;
+}
+
 .login-card::before,
 .login-card::after {
   content: '';
@@ -200,17 +215,25 @@ margin-top: -15px;
 }
 
 .login-forgot {
-  display: inline-flex;        /* 👈 change this */
-  align-items: center;         /* 👈 centers arrow vertically */
-
+  display: inline-flex;
+  align-items: center;
   color: #ffffff;
   text-decoration: none;
   font-family: 'Mulish', sans-serif;
   font-weight: normal;
   font-size: 16px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
 
   margin: 12px 0 0 auto;
-  justify-content: flex-end;   /* 👈 keeps it right-aligned */
+  justify-content: flex-end;
+}
+
+.login-forgot:hover {
+  text-decoration: underline;
 }
 
 .login-forgot .arrow {
@@ -218,8 +241,8 @@ margin-top: -15px;
   margin-left: 8px;
   margin-top: -2px;
   font-weight: 700;
-  display: inline-blockSS ;
-  transform: scaleX(0.6); /* squashes the width horizontally */
+  display: inline-block;
+  transform: scaleX(0.6);
 }
 
 
