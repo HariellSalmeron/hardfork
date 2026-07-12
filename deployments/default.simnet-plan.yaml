@@ -28,37 +28,42 @@ plan:
     - id: 0
       transactions:
         - emulated-contract-publish:
-            contract-name: barrel-nft
+            contract-name: barrel-nft202
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\barrel-nft.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: batch-registry
+            contract-name: barrel-token202
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: "contracts\\barrel-token.clar"
+            clarity-version: 1
+        - emulated-contract-publish:
+            contract-name: batch-registry202
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\batch-registry.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: governance-token
+            contract-name: governance-token202
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\governance-token.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: presale
+            contract-name: presale202
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\presale.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: production-batch
+            contract-name: production-batch202
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\production-batch.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: public-sale
+            contract-name: public-sale202
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\public-sale.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: treasury
+            contract-name: treasury202
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\treasury.clar"
             clarity-version: 1

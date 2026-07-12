@@ -6,6 +6,8 @@
 (define-constant ERR-INSUFFICIENT-ALLOCATION u102)
 (define-constant ERR-INVALID-AMOUNT u103)
 (define-constant ERR-EXCEEDS-LIMIT u104)
+(define-constant ERR-MINT-FAILED u106)
+(define-constant ERR-INSUFFICIENT-STX u107)
 
 (define-constant PUBLIC-SALE-PRICE u1000000000) ;; 10 STX in microSTX
 (define-constant MAX-PER-TX u500)
@@ -15,6 +17,7 @@
 (define-data-var paused bool false)
 (define-data-var total-sold uint u0)
 (define-data-var total-allocation uint DEFAULT-TOTAL-ALLOCATION)
+(define-data-var proceeds-recipient principal tx-sender)
 
 (define-private (is-owner (sender principal))
   (is-eq sender (var-get contract-owner)))
@@ -60,6 +63,12 @@
     (var-set total-allocation amount)
     (ok true)))
 
+(define-public (set-proceeds-recipient (recipient principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set proceeds-recipient recipient)
+    (ok true)))
+
 (define-public (buy (token-amount uint))
   (let ((available (get-available))
         (price (* token-amount PUBLIC-SALE-PRICE)))
@@ -68,6 +77,17 @@
       (asserts! (> token-amount u0) (err ERR-INVALID-AMOUNT))
       (asserts! (<= token-amount MAX-PER-TX) (err ERR-EXCEEDS-LIMIT))
       (asserts! (<= token-amount available) (err ERR-INSUFFICIENT-ALLOCATION))
+      
+      ;; Check buyer has sufficient STX
+      (asserts! (>= (stx-get-balance tx-sender) price) (err ERR-INSUFFICIENT-STX))
+      
+      ;; Transfer STX from buyer to proceeds recipient
+      (asserts! (is-ok (stx-transfer? price tx-sender (var-get proceeds-recipient))) (err ERR-INSUFFICIENT-STX))
+      
+      ;; Mint tokens to buyer via barrel-token contract
+      (asserts! (is-ok (contract-call? .barrel-token202 mint tx-sender token-amount)) (err ERR-MINT-FAILED))
+      
+      ;; Record sale
       (var-set total-sold (+ (var-get total-sold) token-amount))
       (ok {
         buyer: tx-sender,

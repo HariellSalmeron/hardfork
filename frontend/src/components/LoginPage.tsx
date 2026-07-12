@@ -3,10 +3,10 @@ import { signIn, resetPassword } from '../lib/auth'
 import '../styles/LoginPage.css'
 
 interface LoginPageProps {
-  onNavigate: () => void
+  onLoginSuccess: () => void
 }
 
-function LoginPage({ onNavigate }: LoginPageProps) {
+function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -38,8 +38,7 @@ function LoginPage({ onNavigate }: LoginPageProps) {
         if (rememberMe) {
           localStorage.setItem('rememberEmail', email)
         }
-        // Redirect after a short delay
-        setTimeout(onNavigate, 1000)
+        onLoginSuccess()
       }
     } catch (err) {
       setError('An unexpected error occurred')

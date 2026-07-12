@@ -7,8 +7,10 @@
 (define-constant ERR-EXCEEDS-ALLOCATION u103)
 (define-constant ERR-INSUFFICIENT-PRESALE u104)
 (define-constant ERR-INVALID-AMOUNT u105)
+(define-constant ERR-MINT-FAILED u107)
+(define-constant ERR-INSUFFICIENT-STX u108)
 
-(define-constant PRESALE-PRICE u750000000) ;; 7.5 STX in microSTX
+(define-constant PRESALE-PRICE u750000000)
 (define-constant DEFAULT-MAX-PER-BUYER u1000)
 (define-constant DEFAULT-PRESALE-ALLOCATION u25000)
 
@@ -17,6 +19,7 @@
 (define-data-var total-sold uint u0)
 (define-data-var max-per-buyer uint DEFAULT-MAX-PER-BUYER)
 (define-data-var total-allocation uint DEFAULT-PRESALE-ALLOCATION)
+(define-data-var proceeds-recipient principal tx-sender)
 
 (define-map whitelisted-buyers {buyer: principal} {allowed: bool})
 (define-map purchases {buyer: principal} {purchased: uint})
@@ -94,6 +97,12 @@
     (map-set whitelisted-buyers {buyer: buyer} {allowed: false})
     (ok true)))
 
+(define-public (set-proceeds-recipient (recipient principal))
+  (begin
+    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (var-set proceeds-recipient recipient)
+    (ok true)))
+
 (define-public (buy (token-amount uint))
   (let ((current-purchased (get-purchased tx-sender))
         (price (* token-amount PRESALE-PRICE)))
@@ -103,9 +112,24 @@
       (asserts! (> token-amount u0) (err ERR-INVALID-AMOUNT))
       (asserts! (<= (+ current-purchased token-amount) (var-get max-per-buyer)) (err ERR-EXCEEDS-ALLOCATION))
       (asserts! (<= (+ (var-get total-sold) token-amount) (var-get total-allocation)) (err ERR-INSUFFICIENT-PRESALE))
-      ;; Payment handling can be integrated with STX transfer logic later.
-      (map-set purchases {buyer: tx-sender} {purchased: (+ current-purchased token-amount)})
+
+      ;; STX check
+      (asserts! (>= (stx-get-balance tx-sender) price) (err ERR-INSUFFICIENT-STX))
+
+      ;; Transfer STX
+      (asserts! (is-ok (stx-transfer? price tx-sender (var-get proceeds-recipient))) (err ERR-INSUFFICIENT-STX))
+
+      ;; MINT TOKENS
+      (asserts!
+        (is-ok (contract-call? .barrel-token202 mint tx-sender token-amount))
+        (err ERR-MINT-FAILED))
+
+      ;; Record purchase
+      (map-set purchases {buyer: tx-sender}
+        {purchased: (+ current-purchased token-amount)})
+
       (var-set total-sold (+ (var-get total-sold) token-amount))
+
       (ok {
         buyer: tx-sender,
         tokens-purchased: token-amount,

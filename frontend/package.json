@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.107.0",
+    "@stacks/connect": "*",
+    "@stacks/transactions": "*",
+    "@stacks/network": "*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

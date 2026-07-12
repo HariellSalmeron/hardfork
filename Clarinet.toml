@@ -7,23 +7,26 @@ cache_dir = "./.cache"
 mnemonic = "sell invite acquire kitten bamboo drastic jelly vivid peace spawn twice guilt pave pen praise pork crisp unite giggle laundry steel canvas door creek thunder"
 derivation = "m/44'/5757'/0'/0/0"
 
-[contracts.barrel-nft]
+[contracts.barrel-nft202]
 path = "contracts/barrel-nft.clar"
 
-[contracts.governance-token]
+[contracts.barrel-token202]
+path = "contracts/barrel-token.clar"
+
+[contracts.batch-registry202]
+path = "contracts/batch-registry.clar"
+
+[contracts.governance-token202]
 path = "contracts/governance-token.clar"
 
-[contracts.treasury]
-path = "contracts/treasury.clar"
-
-[contracts.production-batch]
-path = "contracts/production-batch.clar"
-
-[contracts.presale]
+[contracts.presale202]
 path = "contracts/presale.clar"
 
-[contracts.public-sale]
+[contracts.production-batch202]
+path = "contracts/production-batch.clar"
+
+[contracts.public-sale202]
 path = "contracts/public-sale.clar"
 
-[contracts.batch-registry]
-path = "contracts/batch-registry.clar"
+[contracts.treasury202]
+path = "contracts/treasury.clar"

@@ -9,50 +9,50 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: barrel-nft
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            contract-name: barrel-nft-61
+            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 110040
             path: "contracts\\barrel-nft.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: batch-registry
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            contract-name: batch-registry-61
+            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 32120
             path: "contracts\\batch-registry.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: governance-token
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            contract-name: governance-token-61
+            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 66830
             path: "contracts\\governance-token.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: presale
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            contract-name: presale-61
+            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 38450
             path: "contracts\\presale.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: production-batch
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            contract-name: production-batch-61
+            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 98070
             path: "contracts\\production-batch.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: public-sale
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            contract-name: public-sale-61
+            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 23360
             path: "contracts\\public-sale.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: treasury
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            contract-name: treasury-61
+            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 53660
             path: "contracts\\treasury.clar"
             anchor-block-only: true
