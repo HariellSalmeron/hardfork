@@ -1,9 +1,13 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL?.trim()
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim()
 
-export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey)
+function isPlaceholderValue(value?: string) {
+  return !value || value.includes('your-project') || value.includes('your-anon-public-key') || value.includes('replace-me')
+}
+
+export const isSupabaseConfigured = !isPlaceholderValue(supabaseUrl) && !isPlaceholderValue(supabaseAnonKey)
 
 function createFallbackClient(): SupabaseClient {
   const fallback = {

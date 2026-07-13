@@ -1,29 +1,15 @@
 import '../styles/Homepage.css'
 import '../styles/Landing.css'
+import Header from './Header'
 
-export default function Homepage() {
+interface HomepageProps {
+  onNavigate: (path: string) => void
+}
+
+export default function Homepage({ onNavigate }: HomepageProps) {
   return (
     <main className="homepage">
-      <header className="header homepage-header">
-        <div className="header-content">
-          <div className="header-branding">
-            <img src="/assets/images/header.png" alt="Logo" className="header-logo" />
-          </div>
-
-          <div className="header-right-group">
-            <nav className="header-nav header-nav-right">
-              <a className="header-nav-item" href="#">Marketplace</a>
-              <a className="header-nav-item" href="#">Portfolio</a>
-              <a className="header-nav-item" href="#">Governance</a>
-              <a className="header-nav-item" href="#">Resources</a>
-            </nav>
-            <div className="header-actions">
-              <button className="btn-connect">Connect</button>
-              <button className="btn-launch">Launch</button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header onNavigate={onNavigate} />
 
       <header className="dashboard-header homepage-hero">
         <div>

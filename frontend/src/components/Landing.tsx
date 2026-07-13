@@ -2,9 +2,10 @@
 
 interface LandingProps {
   onLoginClick: () => void
+  onNavigate: (path: string) => void
 }
 
-function Landing({ onLoginClick }: LandingProps) {
+function Landing({ onLoginClick, onNavigate }: LandingProps) {
   return (
     <div className="landing-click-capture">
       <header className="header">
@@ -12,6 +13,16 @@ function Landing({ onLoginClick }: LandingProps) {
           <div className="header-branding">
           </div>
           <nav className="header-nav">
+            <a
+              className="header-nav-link"
+              href="/marketplace"
+              onClick={(event) => {
+                event.preventDefault()
+                onNavigate('/marketplace')
+              }}
+            >
+              Marketplace
+            </a>
             <button type="button" className="header-nav-link" onClick={onLoginClick}>
               Login
             </button>
