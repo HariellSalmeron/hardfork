@@ -38,6 +38,21 @@
 (define-private (is-owner (sender principal))
   (is-eq sender (var-get contract-owner)))
 
+(define-constant SALE-CONTRACT-PUBLIC-206 'STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ.public-sale206)
+(define-constant SALE-CONTRACT-PRESALE-206 'STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ.presale206)
+
+(define-private (is-sale-contract (sender principal))
+  (or
+    (is-eq sender SALE-CONTRACT-PUBLIC-206)
+    (is-eq sender SALE-CONTRACT-PRESALE-206)))
+
+(define-private (is-authorized-minter)
+  (or
+    (is-sale-contract contract-caller)
+    (match (var-get authorized-minter)
+      minter (or (is-eq tx-sender minter) (is-eq contract-caller minter))
+      false)))
+
 (define-private (get-balance (owner principal))
   (match (map-get? balances {owner: owner})
     entry (get amount entry)
@@ -126,7 +141,7 @@
 ;; mint (owner or authorized minter)
 (define-public (mint (recipient principal) (amount uint))
   (begin
-    (asserts! (or (is-owner tx-sender) (is-eq (some tx-sender) (var-get authorized-minter))) (err ERR-UNAUTHORIZED))
+    (asserts! (or (is-owner tx-sender) (is-authorized-minter)) (err ERR-UNAUTHORIZED))
     (asserts! (> amount u0) (err ERR-NON-POSITIVE))
     (set-balance recipient (+ (get-balance recipient) amount))
     (var-set total-supply (+ (var-get total-supply) amount))
@@ -135,7 +150,7 @@
 ;; mint for barrel (mints TOKENS_PER_BARREL tokens)
 (define-public (mint-for-barrel (recipient principal))
   (begin
-    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (asserts! (or (is-owner tx-sender) (is-authorized-minter)) (err ERR-UNAUTHORIZED))
     (set-balance recipient (+ (get-balance recipient) TOKENS_PER_BARREL))
     (var-set total-supply (+ (var-get total-supply) TOKENS_PER_BARREL))
     (ok true)))

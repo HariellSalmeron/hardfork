@@ -121,7 +121,7 @@
 
       ;; MINT TOKENS
       (asserts!
-        (is-ok (contract-call? .barrel-token202 mint tx-sender token-amount))
+        (is-ok (contract-call? .barrel-token206 mint tx-sender token-amount))
         (err ERR-MINT-FAILED))
 
       ;; Record purchase

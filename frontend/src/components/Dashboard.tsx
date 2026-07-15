@@ -4,7 +4,11 @@ import { connectWallet, transfer, buy, getBalanceOf, getSalePrice, getSaleAvaila
 import { signOut } from '../lib/auth'
 import '../styles/Dashboard.css'
 
-function Dashboard() {
+type DashboardProps = {
+  onNavigate: (path: string) => void
+}
+
+function Dashboard(_: DashboardProps) {
   const { user } = useAuth()
   const [walletAddress, setWalletAddress] = useState<string | null>(null)
   const [balance, setBalance] = useState<number | null>(null)

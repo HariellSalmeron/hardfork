@@ -1,3 +1,5 @@
+# Replace this with your real 24-word mainnet mnemonic.
+# Keep this file private and do not commit it to version control.
 name = "mainnet"
 stacks_node_rpc_address = "https://api.hiro.so"
 deployment_fee_rate = 10

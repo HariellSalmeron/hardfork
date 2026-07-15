@@ -25,7 +25,16 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             >
               Marketplace
             </a>
-            <a className="header-nav-item" href="#">Portfolio</a>
+            <a
+              className="header-nav-item"
+              href="/dashboard"
+              onClick={(event) => {
+                event.preventDefault()
+                onNavigate('/dashboard')
+              }}
+            >
+              Portfolio
+            </a>
             <a className="header-nav-item" href="#">Governance</a>
             <a className="header-nav-item" href="#">Resources</a>
           </nav>

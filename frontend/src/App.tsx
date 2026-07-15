@@ -4,6 +4,7 @@ import Landing from './components/Landing'
 import LoginPage from './components/LoginPage'
 import Homepage from './components/Homepage'
 import MarketplacePage from './components/MarketplacePage'
+import Dashboard from './components/Dashboard'
 
 function AppContent() {
   const { user, loading } = useAuth()
@@ -40,6 +41,10 @@ function AppContent() {
   // simple pathname-based routing for marketplace page
   if (currentPath === '/marketplace') {
     return <MarketplacePage onNavigate={navigate} />
+  }
+
+  if (currentPath === '/dashboard') {
+    return <Dashboard onNavigate={navigate} />
   }
 
   if (user) {

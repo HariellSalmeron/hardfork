@@ -1,19 +1,19 @@
 import { connect as connectStacksWallet, getLocalStorage, openContractCall, AppConfig, UserSession } from '@stacks/connect'
-import { STACKS_TESTNET } from '@stacks/network'
 import { fetchCallReadOnlyFunction, standardPrincipalCV, uintCV } from '@stacks/transactions'
+import { getStacksNetwork } from './networkConfig'
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig })
-const network = STACKS_TESTNET
+const network = getStacksNetwork()
 
 const TOKEN_CONTRACT = {
   address: 'STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ',
-  name: 'barrel-token202',
+  name: 'barrel-token206',
 }
 
 const PUBLIC_SALE_CONTRACT = {
   address: 'STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ',
-  name: 'public-sale202',
+  name: 'public-sale206',
 }
 
 function parseClarityNumber(value: unknown): number | null {
@@ -76,7 +76,35 @@ export async function transfer(recipient: string, amount: number) {
   })
 }
 
+export async function approveSale(amount: number) {
+  return openContractCall({
+    contractAddress: TOKEN_CONTRACT.address,
+    contractName: TOKEN_CONTRACT.name,
+    functionName: 'approve',
+    functionArgs: [standardPrincipalCV(`${PUBLIC_SALE_CONTRACT.address}.${PUBLIC_SALE_CONTRACT.name}`), uintCV(amount)],
+    network,
+    appDetails: { name: 'HardFork Dashboard', icon: window.location.origin + '/favicon.ico' },
+  })
+}
+
+export async function sell(amount: number) {
+  return openContractCall({
+    contractAddress: PUBLIC_SALE_CONTRACT.address,
+    contractName: PUBLIC_SALE_CONTRACT.name,
+    functionName: 'sell',
+    functionArgs: [uintCV(amount)],
+    network,
+    appDetails: { name: 'HardFork Dashboard', icon: window.location.origin + '/favicon.ico' },
+  })
+}
+
 export async function buy(amount: number) {
+  const price = await getSalePrice()
+  if (price === null) throw new Error('Unable to get sale price')
+  const walletAddress = getStoredWalletAddress()
+  if (!walletAddress) throw new Error('Wallet not connected')
+  const totalCost = BigInt(amount) * BigInt(price)
+
   return openContractCall({
     contractAddress: PUBLIC_SALE_CONTRACT.address,
     contractName: PUBLIC_SALE_CONTRACT.name,
@@ -84,6 +112,15 @@ export async function buy(amount: number) {
     functionArgs: [uintCV(amount)],
     network,
     appDetails: { name: 'HardFork Dashboard', icon: window.location.origin + '/favicon.ico' },
+    postConditionMode: 'deny',
+    postConditions: [
+      {
+        type: 'stx-postcondition',
+        address: walletAddress,
+        condition: 'eq',
+        amount: totalCost.toString(),
+      },
+    ],
   })
 }
 
@@ -137,6 +174,20 @@ export async function getSaleAvailable(): Promise<number | null> {
   } catch (err) {
     console.error('read-only sale availability error', err)
     throw err
+  }
+}
+
+export async function getStxBalance(address: string): Promise<number | null> {
+  try {
+    const networkMode = network.isTestnet ? 'testnet' : 'mainnet'
+    const apiUrl = `https://api.${networkMode}.hiro.so/extended/v1/address/${address}/balances`
+    const response = await fetch(apiUrl)
+    const data = await response.json()
+    const stxBalance = data.stx?.balance ?? 0
+    return Number(stxBalance)
+  } catch (err) {
+    console.error('Failed to fetch STX balance', err)
+    return null
   }
 }
 
