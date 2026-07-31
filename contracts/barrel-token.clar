@@ -34,13 +34,17 @@
 (define-constant SALE-CONTRACT-PRESALE-221 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.presale)
 (define-constant SALE-CONTRACT-PUBLIC-224 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.public-sale224)
 (define-constant SALE-CONTRACT-PRESALE-224 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.presale224)
+(define-constant SALE-CONTRACT-PUBLIC-225 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.public-saleContract6)
+(define-constant SALE-CONTRACT-PRESALE-225 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.presaleContract6)
 
 (define-private (is-sale-contract (sender principal))
   (or
     (is-eq sender SALE-CONTRACT-PUBLIC-221)
     (is-eq sender SALE-CONTRACT-PRESALE-221)
     (is-eq sender SALE-CONTRACT-PUBLIC-224)
-    (is-eq sender SALE-CONTRACT-PRESALE-224)))
+    (is-eq sender SALE-CONTRACT-PRESALE-224)
+    (is-eq sender SALE-CONTRACT-PUBLIC-225)
+    (is-eq sender SALE-CONTRACT-PRESALE-225)))
 
 (define-private (is-authorized-minter)
   (or
@@ -122,13 +126,14 @@
   (begin
     (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
     (let (
-        (allow (get-allowance owner tx-sender))
+        (spender (if (is-eq contract-caller tx-sender) tx-sender contract-caller))
+        (allow (get-allowance owner (if (is-eq contract-caller tx-sender) tx-sender contract-caller)))
         (bal (get-balance owner))
       )
       (asserts! (>= allow amount) (err ERR-INSUFFICIENT-ALLOWANCE))
       (asserts! (>= bal amount) (err ERR-INSUFFICIENT-BALANCE))
 
-      (set-allowance owner tx-sender (- allow amount))
+      (set-allowance owner spender (- allow amount))
       (set-balance owner (- bal amount))
       (set-balance recipient (+ (get-balance recipient) amount))
 
@@ -155,9 +160,10 @@
 (define-public (burn (amount uint))
   (begin
     (asserts! (> amount u0) (err ERR-NON-POSITIVE))
-    (let ((bal (get-balance tx-sender)))
+    (let ((burner (if (is-eq contract-caller tx-sender) tx-sender contract-caller))
+          (bal (get-balance (if (is-eq contract-caller tx-sender) tx-sender contract-caller))))
       (asserts! (>= bal amount) (err ERR-INSUFFICIENT-BALANCE))
-      (set-balance tx-sender (- bal amount))
+      (set-balance burner (- bal amount))
       (var-set total-supply (- (var-get total-supply) amount))
       (ok true))))
 
@@ -167,5 +173,3 @@
     (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
     (var-set authorized-minter (some minter))
     (ok true)))
-
-

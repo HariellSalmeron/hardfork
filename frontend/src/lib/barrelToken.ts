@@ -8,12 +8,12 @@ const network = getStacksNetwork()
 
 export const TOKEN_CONTRACT = {
   address: 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F',
-  name: 'barrel-token224',
+  name: 'barrel-tokenContract6',
 }
 
 export const PUBLIC_SALE_CONTRACT = {
   address: 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F',
-  name: 'public-sale224',
+  name: 'public-saleContract6',
 }
 
 function parseClarityNumber(value: unknown): number | null {
@@ -275,22 +275,38 @@ export async function getStxBalance(address: string): Promise<number | null> {
 
   for (const baseUrl of urls) {
     try {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 5000)
+      
       const apiUrl = `${baseUrl}/extended/v1/address/${address}/balances`
-      const response = await fetch(apiUrl, { mode: 'cors' })
+      const response = await fetch(apiUrl, { 
+        signal: controller.signal,
+      })
+      clearTimeout(timeoutId)
+      
       if (!response.ok) {
+        if (response.status === 429) {
+          // Rate limited, skip silently and try next endpoint
+          continue
+        }
         const message = `HTTP ${response.status} ${response.statusText}`
-        console.warn(`STX balance fetch failed for ${apiUrl}: ${message}`)
+        console.debug(`STX balance fetch failed for ${apiUrl}: ${message}`)
         continue
       }
       const data = await response.json()
       const stxBalance = data.stx?.balance ?? 0
       return Number(stxBalance)
     } catch (err) {
-      console.warn(`STX balance fetch error from ${baseUrl}`, err)
+      // Silently skip CORS and network errors, try next endpoint
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        // Network or CORS error, try next
+        continue
+      }
+      console.debug(`STX balance fetch error from ${baseUrl}`, err)
     }
   }
 
-  console.error('Failed to fetch STX balance from all known endpoints')
+  // Return null silently - STX balance is non-critical
   return null
 }
 

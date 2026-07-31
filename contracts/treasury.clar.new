@@ -1,5 +1,5 @@
 ;; Treasury contract
-;; Simple vault for holding STX funds with owner and signer-based access.
+;; Minimal working vault for STX custody and signer approvals.
 
 (define-constant ERR-UNAUTHORIZED u100)
 (define-constant ERR-CONTRACT-PAUSED u101)
@@ -20,14 +20,7 @@
 (define-constant TREASURY-CONTRACT-PRINCIPAL 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.treasury222)
 
 (define-map authorized-depositors {addr: principal} {authorized: bool})
-(define-map withdrawal-proposals {nonce: uint}
-  {
-    amount: uint,
-    recipient: principal,
-    description: (string-utf8 256),
-    proposed-by: principal,
-    proposed-block: uint
-  })
+(define-map withdrawal-proposals {nonce: uint} {amount: uint, recipient: principal, description: (string-utf8 256), proposed-by: principal, proposed-block: uint})
 (define-map withdrawal-approvals {nonce: uint, signer: principal} {approved: bool})
 
 (define-private (is-owner (sender principal))
@@ -75,9 +68,6 @@
     (asserts! (is-ok (stx-transfer? amount TREASURY-CONTRACT-PRINCIPAL recipient)) (err ERR-INSUFFICIENT-BALANCE))
     (ok true)))
 
-(define-read-only (receive-stx)
-  (ok true))
-
 (define-public (add-signer (signer principal))
   (begin
     (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
@@ -107,33 +97,18 @@
       (err ERR-UNAUTHORIZED-DEPOSITOR))))
 
 (define-public (propose-withdrawal (amount uint) (recipient principal) (description (string-utf8 256)))
-  (let ((signer-check
-         (or
-           (is-eq (some tx-sender) (var-get signer-1))
-           (is-eq (some tx-sender) (var-get signer-2))
-           (is-eq (some tx-sender) (var-get signer-3)))))
+  (let ((signer-check (or (is-eq (some tx-sender) (var-get signer-1)) (is-eq (some tx-sender) (var-get signer-2)) (is-eq (some tx-sender) (var-get signer-3)))))
     (begin
       (asserts! signer-check (err ERR-INVALID-SIGNER))
       (asserts! (> amount u0) (err ERR-INSUFFICIENT-BALANCE))
       (let ((nonce (var-get next-nonce)))
         (begin
-          (map-set withdrawal-proposals {nonce: nonce}
-            {
-              amount: amount,
-              recipient: recipient,
-              description: description,
-              proposed-by: tx-sender,
-              proposed-block: u0
-            })
+          (map-set withdrawal-proposals {nonce: nonce} {amount: amount, recipient: recipient, description: description, proposed-by: tx-sender, proposed-block: u0})
           (var-set next-nonce (+ nonce u1))
           (ok nonce))))))
 
 (define-public (approve-withdrawal (nonce uint))
-  (let ((signer-check
-         (or
-           (is-eq (some tx-sender) (var-get signer-1))
-           (is-eq (some tx-sender) (var-get signer-2))
-           (is-eq (some tx-sender) (var-get signer-3))))
+  (let ((signer-check (or (is-eq (some tx-sender) (var-get signer-1)) (is-eq (some tx-sender) (var-get signer-2)) (is-eq (some tx-sender) (var-get signer-3))))
         (proposal (map-get? withdrawal-proposals {nonce: nonce}))
         (already-approved (map-get? withdrawal-approvals {nonce: nonce, signer: tx-sender})))
     (begin

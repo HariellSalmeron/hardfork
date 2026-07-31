@@ -13,14 +13,14 @@
 (define-constant PUBLIC-SALE-PRICE u10000000) ;; 10 STX in microSTX
 (define-constant MAX-PER-TX u500)
 (define-constant DEFAULT-TOTAL-ALLOCATION u25000)
-(define-constant PUBLIC-SALE-PRINCIPAL 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.public-sale224)
-(define-constant TREASURY-CONTRACT-PRINCIPAL 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.treasury224)
+(define-constant PUBLIC-SALE-PRINCIPAL 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.public-saleContract6)
+(define-constant TREASURY-CONTRACT-PRINCIPAL 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.treasuryContract6)
 
 (define-data-var contract-owner principal tx-sender)
 (define-data-var paused bool false)
 (define-data-var total-sold uint u0)
 (define-data-var total-allocation uint DEFAULT-TOTAL-ALLOCATION)
-(define-data-var proceeds-recipient principal TREASURY-CONTRACT-PRINCIPAL)
+(define-data-var proceeds-recipient principal tx-sender)
 
 (define-private (is-owner (sender principal))
   (is-eq sender (var-get contract-owner)))
@@ -88,8 +88,7 @@
       (asserts! (is-ok (stx-transfer? price tx-sender (var-get proceeds-recipient))) (err ERR-INSUFFICIENT-STX))
 
       ;; Mint tokens to buyer via barrel-token contract
-      (asserts! (is-ok (contract-call? .barrel-token224 mint tx-sender token-amount)) (err ERR-MINT-FAILED))
-
+    (asserts! (is-ok (contract-call? .barrel-tokenContract6 mint tx-sender token-amount)) (err ERR-MINT-FAILED))
       ;; Record sale
       (var-set total-sold (+ (var-get total-sold) token-amount))
       (ok {
@@ -100,25 +99,20 @@
       }))))
 
 (define-public (sell (token-amount uint))
-  (let ((price (* token-amount PUBLIC-SALE-PRICE)))
-    (begin
-      (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
-      (asserts! (> token-amount u0) (err ERR-INVALID-AMOUNT))
-      (asserts! (<= token-amount MAX-PER-TX) (err ERR-EXCEEDS-LIMIT))
-      (asserts! (>= (stx-get-balance PUBLIC-SALE-PRINCIPAL) price) (err ERR-INSUFFICIENT-STX))
+  (begin
+    (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
+    (asserts! (> token-amount u0) (err ERR-INVALID-AMOUNT))
+    (asserts! (<= token-amount MAX-PER-TX) (err ERR-EXCEEDS-LIMIT))
 
-      ;; Transfer tokens from seller to this contract
-      (asserts! (is-ok (contract-call? .barrel-token224 transfer-from tx-sender PUBLIC-SALE-PRINCIPAL token-amount)) (err ERR-CROSS-CONTRACT-CALL-FAILED))
+    ;; Transfer tokens from seller to this contract
+    (asserts! (is-ok (contract-call? .barrel-tokenContract6 transfer-from tx-sender PUBLIC-SALE-PRINCIPAL token-amount)) (err ERR-CROSS-CONTRACT-CALL-FAILED))
 
-      ;; Burn the returned tokens from the contract's balance
-      (asserts! (is-ok (contract-call? .barrel-token224 burn token-amount)) (err ERR-CROSS-CONTRACT-CALL-FAILED))
+    ;; Burn the returned tokens from the contract's balance
+    (asserts! (is-ok (contract-call? .barrel-tokenContract6 burn token-amount)) (err ERR-CROSS-CONTRACT-CALL-FAILED))
 
-      ;; Refund STX to seller
-      (asserts! (is-ok (stx-transfer? price PUBLIC-SALE-PRINCIPAL tx-sender)) (err ERR-INSUFFICIENT-STX))
-
-      (var-set total-sold (- (var-get total-sold) token-amount))
-      (ok {
-        seller: tx-sender,
-        tokens-sold: token-amount,
-        refund: price
-      }))))
+    ;; Record the sale
+    (var-set total-sold (- (var-get total-sold) token-amount))
+    (ok {
+      seller: tx-sender,
+      tokens-sold: token-amount
+    })))
