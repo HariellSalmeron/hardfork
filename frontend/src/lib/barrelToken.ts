@@ -1,19 +1,19 @@
-import { connect as connectStacksWallet, getLocalStorage, openContractCall, AppConfig, UserSession } from '@stacks/connect'
-import { fetchCallReadOnlyFunction, standardPrincipalCV, uintCV } from '@stacks/transactions'
-import { getStacksNetwork } from './networkConfig'
+﻿import { connect as connectStacksWallet, request as requestStacks, getLocalStorage, openContractCall, AppConfig, UserSession, getStacksProvider, isStacksWalletInstalled } from '@stacks/connect'
+import { fetchCallReadOnlyFunction, standardPrincipalCV, contractPrincipalCV, uintCV } from '@stacks/transactions'
+import { getStacksNetwork, getStacksNetworkMode } from './networkConfig'
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig })
 const network = getStacksNetwork()
 
-const TOKEN_CONTRACT = {
-  address: 'STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ',
-  name: 'barrel-token206',
+export const TOKEN_CONTRACT = {
+  address: 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F',
+  name: 'barrel-token224',
 }
 
-const PUBLIC_SALE_CONTRACT = {
-  address: 'STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ',
-  name: 'public-sale206',
+export const PUBLIC_SALE_CONTRACT = {
+  address: 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F',
+  name: 'public-sale224',
 }
 
 function parseClarityNumber(value: unknown): number | null {
@@ -26,10 +26,59 @@ function parseClarityNumber(value: unknown): number | null {
   return null
 }
 
+function isStacksAddress(address: string): boolean {
+  return /^S[PTMN]/.test(address)
+}
+
+function getNetworkModeFromAddress(address: string): 'mainnet' | 'testnet' {
+  if (address.startsWith('SP') || address.startsWith('SM')) return 'mainnet'
+  if (address.startsWith('ST') || address.startsWith('SN')) return 'testnet'
+  return getStacksNetworkMode()
+}
+
+function normalizeStoredAddress(address?: string | null): string | null {
+  if (!address || typeof address !== 'string') return null
+  return isStacksAddress(address) ? address : null
+}
+
+function findStacksAddress(addresses: any): string | null {
+  if (!addresses) return null
+
+  if (Array.isArray(addresses)) {
+    return addresses.map((entry) => normalizeStoredAddress(entry?.address)).find(Boolean) ?? null
+  }
+
+  if (typeof addresses === 'object') {
+    return Object.values(addresses)
+      .map((value) => findStacksAddress(value))
+      .find(Boolean) ?? null
+  }
+
+  return null
+}
+
+export function getStacksAddressFromResult(result: any): string | null {
+  return findStacksAddress(result?.addresses)
+}
+
 export function getStoredWalletAddress(): string | null {
   try {
-    const data = getLocalStorage() as { addresses?: { stx?: Array<{ address?: string }> } } | null
-    return data?.addresses?.stx?.[0]?.address ?? null
+    // Prefer session-backed user data if available
+    try {
+      const userData = (userSession as any).loadUserData ? (userSession as any).loadUserData() : null
+      if (userData) {
+        const addr =
+          findStacksAddress(userData?.profile?.stx?.accounts) ||
+          findStacksAddress(userData?.addresses) ||
+          normalizeStoredAddress(userData?.address)
+        if (addr) return addr
+      }
+    } catch (e) {
+      // ignore and fallback to local storage
+    }
+
+    const data = getLocalStorage() as { addresses?: Record<string, Array<{ address?: string }>> } | null
+    return findStacksAddress(data?.addresses) ?? null
   } catch (error) {
     console.warn('Unable to read stored wallet address', error)
     return null
@@ -37,10 +86,33 @@ export function getStoredWalletAddress(): string | null {
 }
 
 export async function connectWallet() {
-  await connectStacksWallet({
+  const options = {
     forceWalletSelect: true,
     enableLocalStorage: true,
-  })
+    network: getStacksNetworkMode(),
+  }
+
+  try {
+    return await connectStacksWallet(options)
+  } catch (error) {
+    console.warn('connect() failed, attempting direct provider fallback if available.', error)
+    const provider = getStacksProvider()
+    if (provider) {
+      try {
+        return await requestStacks({ provider, enableLocalStorage: true }, 'getAddresses', { network: getStacksNetworkMode() })
+      } catch (fallbackError) {
+        console.warn('Direct provider getAddresses fallback failed.', fallbackError)
+      }
+    }
+    if (!isStacksWalletInstalled()) {
+      throw new Error('No compatible Stacks wallet installed or enabled. Please install or enable Leather or another Stacks wallet.')
+    }
+    throw error
+  }
+}
+
+export function getWalletNetworkMode(address: string): 'mainnet' | 'testnet' {
+  return getNetworkModeFromAddress(address)
 }
 
 export async function mint(recipient: string, amount: number) {
@@ -81,7 +153,7 @@ export async function approveSale(amount: number) {
     contractAddress: TOKEN_CONTRACT.address,
     contractName: TOKEN_CONTRACT.name,
     functionName: 'approve',
-    functionArgs: [standardPrincipalCV(`${PUBLIC_SALE_CONTRACT.address}.${PUBLIC_SALE_CONTRACT.name}`), uintCV(amount)],
+    functionArgs: [contractPrincipalCV(PUBLIC_SALE_CONTRACT.address, PUBLIC_SALE_CONTRACT.name), uintCV(amount)],
     network,
     appDetails: { name: 'HardFork Dashboard', icon: window.location.origin + '/favicon.ico' },
   })
@@ -98,12 +170,33 @@ export async function sell(amount: number) {
   })
 }
 
+export async function getAllowanceOf(owner: string): Promise<number | null> {
+  try {
+    const cv = await fetchCallReadOnlyFunction({
+      contractAddress: TOKEN_CONTRACT.address,
+      contractName: TOKEN_CONTRACT.name,
+      functionName: 'get-allowance-of',
+      functionArgs: [
+        standardPrincipalCV(owner),
+        contractPrincipalCV(PUBLIC_SALE_CONTRACT.address, PUBLIC_SALE_CONTRACT.name),
+      ],
+      network,
+      senderAddress: owner,
+    })
+    return parseClarityNumber(cv)
+  } catch (err) {
+    console.error('read-only allowance error', err)
+    return null
+  }
+}
+
 export async function buy(amount: number) {
   const price = await getSalePrice()
   if (price === null) throw new Error('Unable to get sale price')
+
+  // Resolve the active wallet address just before opening the call.
   const walletAddress = getStoredWalletAddress()
   if (!walletAddress) throw new Error('Wallet not connected')
-  const totalCost = BigInt(amount) * BigInt(price)
 
   return openContractCall({
     contractAddress: PUBLIC_SALE_CONTRACT.address,
@@ -112,15 +205,7 @@ export async function buy(amount: number) {
     functionArgs: [uintCV(amount)],
     network,
     appDetails: { name: 'HardFork Dashboard', icon: window.location.origin + '/favicon.ico' },
-    postConditionMode: 'deny',
-    postConditions: [
-      {
-        type: 'stx-postcondition',
-        address: walletAddress,
-        condition: 'eq',
-        amount: totalCost.toString(),
-      },
-    ],
+    postConditionMode: 'allow',
   })
 }
 
@@ -178,17 +263,35 @@ export async function getSaleAvailable(): Promise<number | null> {
 }
 
 export async function getStxBalance(address: string): Promise<number | null> {
-  try {
-    const networkMode = network.isTestnet ? 'testnet' : 'mainnet'
-    const apiUrl = `https://api.${networkMode}.hiro.so/extended/v1/address/${address}/balances`
-    const response = await fetch(apiUrl)
-    const data = await response.json()
-    const stxBalance = data.stx?.balance ?? 0
-    return Number(stxBalance)
-  } catch (err) {
-    console.error('Failed to fetch STX balance', err)
+  if (!isStacksAddress(address)) {
+    console.warn('Invalid STX address provided for balance fetch:', address)
     return null
   }
+
+  const networkMode = getNetworkModeFromAddress(address)
+  const urls = networkMode === 'mainnet'
+    ? ['https://api.mainnet.hiro.so', 'https://api.hiro.so']
+    : ['https://api.testnet.hiro.so', 'https://api.hiro.so']
+
+  for (const baseUrl of urls) {
+    try {
+      const apiUrl = `${baseUrl}/extended/v1/address/${address}/balances`
+      const response = await fetch(apiUrl, { mode: 'cors' })
+      if (!response.ok) {
+        const message = `HTTP ${response.status} ${response.statusText}`
+        console.warn(`STX balance fetch failed for ${apiUrl}: ${message}`)
+        continue
+      }
+      const data = await response.json()
+      const stxBalance = data.stx?.balance ?? 0
+      return Number(stxBalance)
+    } catch (err) {
+      console.warn(`STX balance fetch error from ${baseUrl}`, err)
+    }
+  }
+
+  console.error('Failed to fetch STX balance from all known endpoints')
+  return null
 }
 
 export { userSession }

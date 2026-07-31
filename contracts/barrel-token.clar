@@ -7,20 +7,12 @@
 (define-constant ERR-INSUFFICIENT-ALLOWANCE u102)
 (define-constant ERR-NON-POSITIVE u103)
 (define-constant ERR-CONTRACT-PAUSED u104)
-(define-constant ERR-FOUNDER-ALREADY-MINTED u105)
-(define-constant ERR-CROSS-CONTRACT-CALL-FAILED u106)
 
 ;; configuration
 (define-data-var contract-owner principal tx-sender)
 (define-data-var paused bool false)
 (define-data-var total-supply uint u0)
-(define-data-var founder-minted bool false)
 (define-data-var authorized-minter (optional principal) none)
-
-;; founder allocation (optional)
-(define-constant FOUNDER_BARRELS u0)
-(define-constant TOKENS_PER_FOUNDER_BARREL u0)
-(define-constant FOUNDER_TOKEN_ALLOCATION (* FOUNDER_BARRELS TOKENS_PER_FOUNDER_BARREL))
 
 ;; token per barrel (adjust if you want a different per-barrel amount)
 (define-constant TOKENS_PER_BARREL u250)
@@ -38,13 +30,17 @@
 (define-private (is-owner (sender principal))
   (is-eq sender (var-get contract-owner)))
 
-(define-constant SALE-CONTRACT-PUBLIC-206 'STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ.public-sale206)
-(define-constant SALE-CONTRACT-PRESALE-206 'STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ.presale206)
+(define-constant SALE-CONTRACT-PUBLIC-221 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.public-sale)
+(define-constant SALE-CONTRACT-PRESALE-221 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.presale)
+(define-constant SALE-CONTRACT-PUBLIC-224 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.public-sale224)
+(define-constant SALE-CONTRACT-PRESALE-224 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.presale224)
 
 (define-private (is-sale-contract (sender principal))
   (or
-    (is-eq sender SALE-CONTRACT-PUBLIC-206)
-    (is-eq sender SALE-CONTRACT-PRESALE-206)))
+    (is-eq sender SALE-CONTRACT-PUBLIC-221)
+    (is-eq sender SALE-CONTRACT-PRESALE-221)
+    (is-eq sender SALE-CONTRACT-PUBLIC-224)
+    (is-eq sender SALE-CONTRACT-PRESALE-224)))
 
 (define-private (is-authorized-minter)
   (or
@@ -172,9 +168,4 @@
     (var-set authorized-minter (some minter))
     (ok true)))
 
-;; delegation (simple)
-(define-map delegation {delegator: principal} {delegatee: principal})
-(define-public (delegate (delegatee principal))
-  (begin
-    (map-set delegation {delegator: tx-sender} {delegatee: delegatee})
-    (ok true)))
+

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { connectWallet, transfer, buy, getBalanceOf, getSalePrice, getSaleAvailable, getStoredWalletAddress } from '../lib/barrelToken'
 import { signOut } from '../lib/auth'
@@ -38,6 +38,11 @@ function Dashboard(_: DashboardProps) {
 
     loadInitialData()
   }, [])
+
+  useEffect(() => {
+    if (!walletAddress) return
+    void fetchBalance(walletAddress)
+  }, [walletAddress])
 
   const fetchBalance = async (address: string) => {
     const value = await getBalanceOf(address)
@@ -135,17 +140,13 @@ function Dashboard(_: DashboardProps) {
           <h2>BARREL Token Details</h2>
           <p>$BARREL is your testnet governance token for the HardFork Barrel system.</p>
           <ul>
-            <li>Token contract: <code>barrel-token202</code></li>
-            <li>Public sale contract: <code>public-sale202</code></li>
+            <li>Token contract: <code>barrel-token212</code></li>
+            <li>Public sale contract: <code>public-sale212</code></li>
             <li>Contract address: <code>STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ</code></li>
             <li>Network: Testnet</li>
-            <li>Buy flow: <code>public-sale202.buy</code> buys tokens with STX</li>
-            <li>Transfer flow: <code>barrel-token202.transfer</code> moves BARREL tokens to another STX address</li>
+            <li>Buy flow: <code>public-sale212.buy</code> buys tokens with STX</li>
+            <li>Transfer flow: <code>barrel-token212.transfer</code> moves BARREL tokens to another STX address</li>
           </ul>
-        </section>
-
-        <section className="dashboard-card">
-          <h2>Wallet Connection</h2>
           <button type="button" onClick={handleConnect}>
             {walletAddress ? 'Reconnect Stacks Wallet' : 'Connect Stacks Wallet'}
           </button>

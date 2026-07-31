@@ -9,59 +9,59 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: barrel-nft206
+            contract-name: barrel-nft401
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 110040
-            path: "contracts\\barrel-nft.clar"
+            path: contracts/barrel-nft.clar
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: barrel-token206
+            contract-name: barrel-token401
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 62960
-            path: "contracts\\barrel-token.clar"
+            path: contracts/barrel-token.clar
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: batch-registry206
+            contract-name: batch-registry401
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 31480
-            path: "contracts\\batch-registry.clar"
+            path: contracts/batch-registry.clar
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: governance-token206
+            contract-name: governance-token401
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 66830
-            path: "contracts\\governance-token.clar"
+            path: contracts/governance-token.clar
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: presale206
+            contract-name: presale401
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 44980
-            path: "contracts\\presale.clar"
+            path: contracts/presale.clar
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: production-batch206
+            contract-name: production-batch401
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 124470
-            path: "contracts\\production-batch.clar"
+            path: contracts/production-batch.clar
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: public-sale206
+            contract-name: public-sale401
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
-            cost: 31840
-            path: "contracts\\public-sale.clar"
+            cost: 45480
+            path: contracts/public-sale.clar
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: treasury206
+            contract-name: treasury401
             expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
             cost: 53660
-            path: "contracts\\treasury.clar"
+            path: contracts/treasury.clar
             anchor-block-only: true
-            clarity-version: 1
+            clarity-version: 2
       epoch: "2.05"

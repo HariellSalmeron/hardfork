@@ -6,10 +6,8 @@
 
 ;; Error constants
 (define-constant ERR-UNAUTHORIZED u200)
-(define-constant ERR-BATCH-EXISTS u201)
 (define-constant ERR-BATCH-NOT-FOUND u202)
 (define-constant ERR-INVALID-PARAMS u203)
-(define-constant ERR-MINTING-IN-PROGRESS u204)
 (define-constant ERR-BATCH-ALREADY-COMPLETE u205)
 (define-constant ERR-CONTRACT-PAUSED u206)
 (define-constant ERR-INVALID-ALLOCATION u207)
@@ -24,7 +22,7 @@
 (define-data-var paused bool false)
 (define-data-var next-batch-id uint u0)
 
-;; Linked contract addresses
+;; Linked contract addresses (configured via setter functions)
 (define-data-var barrel-nft-contract (optional principal) none)
 (define-data-var governance-token-contract (optional principal) none)
 (define-data-var presale-contract (optional principal) none)
@@ -69,14 +67,6 @@
 ;; Helpers
 (define-private (is-owner (sender principal))
   (is-eq sender (var-get contract-owner)))
-
-(define-private (batch-exists? (batch-id uint))
-  (is-some (map-get? batches {batch-id: batch-id})))
-
-(define-private (validate-batch-id (batch-id uint))
-  (ok (begin
-    (asserts! (< batch-id (var-get next-batch-id)) (err ERR-BATCH-NOT-FOUND))
-    true)))
 
 ;; Read-only functions
 
@@ -288,7 +278,7 @@
     )))
 
 ;; Record a barrel as minted (called per barrel after NFT mint)
-(define-public (record-barrel-minted (batch-id uint) (barrel-id uint))
+(define-public (record-barrel-minted (batch-id uint) (barrel-id_ uint))
   (let
     (
       (batch (unwrap! (map-get? batches {batch-id: batch-id}) (err ERR-BATCH-NOT-FOUND)))
@@ -309,15 +299,30 @@
       (ok true)
     )))
 
-;; Finalize token minting (validates all barrels minted and mints governance tokens)
+;; Finalize token minting (validates all barrels minted and marks the batch ready for token distribution)
 (define-public (finalize-token-mint (batch-id uint))
-  ;; Placeholder implementation; replace with actual token minting logic.
-  (ok true))
+  (let ((batch (unwrap! (map-get? batches {batch-id: batch-id}) (err ERR-BATCH-NOT-FOUND)))
+        (status (unwrap! (map-get? batch-minting-status {batch-id: batch-id}) (err ERR-BATCH-NOT-FOUND))))
+    (begin
+      (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
+      (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+      (asserts! (not (get minting-complete batch)) (err ERR-BATCH-ALREADY-COMPLETE))
+      (asserts! (>= (get barrels-minted status) (get barrel-count batch)) (err ERR-INVALID-PARAMS))
+      (map-set batch-minting-status {batch-id: batch-id}
+        {
+          barrels-minted: (get barrels-minted status),
+          tokens-minted: true
+        })
+      (ok true))))
 
 ;; Activate sales for a batch (opens presale and public sale)
-(define-public (activate-sales (batch-id uint))
-  ;; Placeholder implementation; replace with actual sales activation logic.
-  (ok true))
+(define-read-only (activate-sales (batch-id uint))
+  (let ((batch (unwrap! (map-get? batches {batch-id: batch-id}) (err ERR-BATCH-NOT-FOUND))))
+    (begin
+      (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
+      (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+      (asserts! (get minting-complete batch) (err ERR-INVALID-PARAMS))
+      (ok true))))
 
 ;; Get allocation breakdown for a batch
 (define-read-only (get-batch-allocation (batch-id uint))

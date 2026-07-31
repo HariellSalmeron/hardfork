@@ -3,64 +3,65 @@ id: 0
 name: Mainnet deployment
 network: mainnet
 stacks-node: "https://api.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
 plan:
   batches:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: barrel-nft206
-            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
-            cost: 110040
+            contract-name: barrel-nft224
+            expected-sender: SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F
+            cost: 110050
             path: "contracts\\barrel-nft.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: barrel-token206
-            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
-            cost: 62960
+            contract-name: barrel-token224
+            expected-sender: SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F
+            cost: 56990
             path: "contracts\\barrel-token.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: batch-registry206
-            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
-            cost: 31480
+            contract-name: batch-registry224
+            expected-sender: SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F
+            cost: 31040
             path: "contracts\\batch-registry.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: governance-token206
-            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
+            contract-name: governance-token224
+            expected-sender: SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F
             cost: 66830
             path: "contracts\\governance-token.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: presale206
-            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
-            cost: 44980
+            contract-name: presale224
+            expected-sender: SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F
+            cost: 46340
             path: "contracts\\presale.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: production-batch206
-            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
-            cost: 124470
+            contract-name: production-batch224
+            expected-sender: SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F
+            cost: 130210
             path: "contracts\\production-batch.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: public-sale206
-            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
-            cost: 31840
+            contract-name: public-sale224
+            expected-sender: SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F
+            cost: 45360
             path: "contracts\\public-sale.clar"
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
-            contract-name: treasury206
-            expected-sender: STC5KHM41H6WHAST7MWWDD807YSPRQKJ68T330BQ
-            cost: 53660
+            contract-name: treasury224
+            expected-sender: SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F
+            cost: 59330
             path: "contracts\\treasury.clar"
             anchor-block-only: true
-            clarity-version: 1
+            clarity-version: 2
       epoch: "2.05"

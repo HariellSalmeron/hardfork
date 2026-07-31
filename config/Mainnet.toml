@@ -1,1 +1,8 @@
-# Moved from settings/Mainnet.toml
+[network]
+name = "mainnet"
+stacks_node_rpc_address = "https://api.hiro.so"
+deployment_fee_rate = 10
+
+[accounts.deployer]
+address = "SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F"
+mnemonic = "ready heavy foil syrup fossil join garden poem present simple blame can negative found grunt program broom power quick ripple lizard equip raccoon bean"

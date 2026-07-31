@@ -10,16 +10,17 @@
 (define-constant ERR-MINT-FAILED u107)
 (define-constant ERR-INSUFFICIENT-STX u108)
 
-(define-constant PRESALE-PRICE u750000000)
+(define-constant PRESALE-PRICE u7500000) ;; 7.5 STX in microSTX
 (define-constant DEFAULT-MAX-PER-BUYER u1000)
 (define-constant DEFAULT-PRESALE-ALLOCATION u25000)
+(define-constant TREASURY-CONTRACT-PRINCIPAL 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.treasury)
 
 (define-data-var contract-owner principal tx-sender)
 (define-data-var paused bool false)
 (define-data-var total-sold uint u0)
 (define-data-var max-per-buyer uint DEFAULT-MAX-PER-BUYER)
 (define-data-var total-allocation uint DEFAULT-PRESALE-ALLOCATION)
-(define-data-var proceeds-recipient principal tx-sender)
+(define-data-var proceeds-recipient principal TREASURY-CONTRACT-PRINCIPAL)
 
 (define-map whitelisted-buyers {buyer: principal} {allowed: bool})
 (define-map purchases {buyer: principal} {purchased: uint})
@@ -121,7 +122,7 @@
 
       ;; MINT TOKENS
       (asserts!
-        (is-ok (contract-call? .barrel-token206 mint tx-sender token-amount))
+        (is-ok (contract-call? .barrel-token224 mint tx-sender token-amount))
         (err ERR-MINT-FAILED))
 
       ;; Record purchase

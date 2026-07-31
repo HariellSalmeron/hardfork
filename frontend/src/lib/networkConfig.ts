@@ -4,8 +4,8 @@ export type StacksNetworkMode = 'mainnet' | 'testnet'
 
 export function getStacksNetworkMode(): StacksNetworkMode {
   const envValue = import.meta.env?.VITE_STACKS_NETWORK?.toLowerCase?.() ?? ''
-  if (envValue === 'mainnet') return 'mainnet'
-  return 'testnet'
+  if (envValue === 'testnet') return 'testnet'
+  return 'mainnet'
 }
 
 export function getStacksNetwork() {

@@ -13,11 +13,12 @@
 (define-constant ERR-MAX-SIGNERS u104)
 (define-constant ERR-WITHDRAWAL-NOT-FOUND u105)
 (define-constant ERR-ALREADY-APPROVED u106)
-(define-constant ERR-INSUFFICIENT-APPROVALS u107)
 (define-constant ERR-UNAUTHORIZED-DEPOSITOR u108)
 
 (define-data-var contract-owner principal tx-sender)
 (define-data-var paused bool false)
+
+(define-constant TREASURY-CONTRACT-PRINCIPAL 'SPBE9FSXQHX9FPGDAHJYTXDZ9X99HQBH835A3Y1F.treasury222)
 
 ;; signers for multisig (max 3)
 (define-data-var signer-1 (optional principal) none)
@@ -47,11 +48,18 @@
 (define-private (is-owner (sender principal))
   (is-eq sender (var-get contract-owner)))
 
+(define-private (is-authorized-signer (sender principal))
+  (or
+    (is-eq (some sender) (var-get signer-1))
+    (or
+      (is-eq (some sender) (var-get signer-2))
+      (is-eq (some sender) (var-get signer-3)))))
+
 ;; utils
 (define-read-only (get-owner) (var-get contract-owner))
 (define-read-only (get-paused) (var-get paused))
 (define-read-only (get-balance)
-  (stx-get-balance tx-sender))
+  (stx-get-balance TREASURY-CONTRACT-PRINCIPAL))
 
 ;; governance
 (define-public (set-owner (new-owner principal))
@@ -76,12 +84,14 @@
 (define-public (withdraw (amount uint) (recipient principal))
   (begin
     (asserts! (not (var-get paused)) (err ERR-CONTRACT-PAUSED))
-    (asserts! (is-owner tx-sender) (err ERR-UNAUTHORIZED))
+    (asserts! (or (is-owner tx-sender) (is-authorized-signer tx-sender)) (err ERR-UNAUTHORIZED))
     (asserts! (> amount u0) (err ERR-INSUFFICIENT-BALANCE))
+    (asserts! (>= (stx-get-balance TREASURY-CONTRACT-PRINCIPAL) amount) (err ERR-INSUFFICIENT-BALANCE))
+    (asserts! (is-ok (stx-transfer? amount TREASURY-CONTRACT-PRINCIPAL recipient)) (err ERR-INSUFFICIENT-BALANCE))
     (ok true)))
 
 ;; fallback receivable function
-(define-public (receive-stx)
+(define-read-only (receive-stx)
   (ok true))
 
 ;; add signer (max 3 signers)
@@ -110,18 +120,19 @@
     (match (map-get? authorized-depositors {addr: source})
       entry (begin
         (asserts! (get authorized entry) (err ERR-UNAUTHORIZED-DEPOSITOR))
+        (asserts! (is-ok (stx-transfer? amount source TREASURY-CONTRACT-PRINCIPAL)) (err ERR-INSUFFICIENT-BALANCE))
         (ok true))
       (err ERR-UNAUTHORIZED-DEPOSITOR))))
 
 ;; propose withdrawal
 (define-public (propose-withdrawal (amount uint) (recipient principal) (description (string-utf8 256)))
-  (let ((is-signer (or
+  (let ((signer-check (or
           (is-eq (some tx-sender) (var-get signer-1))
           (or
             (is-eq (some tx-sender) (var-get signer-2))
             (is-eq (some tx-sender) (var-get signer-3))))))
     (begin
-      (asserts! is-signer (err ERR-INVALID-SIGNER))
+      (asserts! signer-check (err ERR-INVALID-SIGNER))
       (asserts! (> amount u0) (err ERR-INSUFFICIENT-BALANCE))
       (let ((nonce (var-get next-nonce)))
         (begin
@@ -139,7 +150,7 @@
 ;; approve withdrawal (2-of-3 threshold)
 (define-public (approve-withdrawal (nonce uint))
   (let (
-        (is-signer (or
+        (signer-check (or
           (is-eq (some tx-sender) (var-get signer-1))
           (or
             (is-eq (some tx-sender) (var-get signer-2))
@@ -148,7 +159,7 @@
         (already-approved (map-get? withdrawal-approvals {nonce: nonce, signer: tx-sender}))
       )
     (begin
-      (asserts! is-signer (err ERR-INVALID-SIGNER))
+      (asserts! signer-check (err ERR-INVALID-SIGNER))
       (asserts! (is-some proposal) (err ERR-WITHDRAWAL-NOT-FOUND))
       (asserts! (is-none already-approved) (err ERR-ALREADY-APPROVED))
       (map-set withdrawal-approvals {nonce: nonce, signer: tx-sender} {approved: true})

@@ -13,6 +13,8 @@
 (define-constant ERR-INVALID-METADATA u103)
 
 ;; redemption instrument metadata structure
+(define-data-var contract-owner principal tx-sender)
+
 (define-map instrument-metadata {instrument-id: uint}
   {
     batch-id: (string-utf8 256),      ;; Batch name (e.g., "ACQUISITION-2026-001")
@@ -25,7 +27,6 @@
     uri: (string-utf8 256)            ;; IPFS/HTTP metadata URI
   })
 
-(define-data-var contract-owner principal tx-sender)
 (define-data-var paused bool false)
 (define-data-var production-facility principal tx-sender) ;; Focus Distilling and Bottling retains legal title to physical barrels
 

@@ -28,42 +28,42 @@ plan:
     - id: 0
       transactions:
         - emulated-contract-publish:
-            contract-name: barrel-nft206
+            contract-name: barrel-nft224
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\barrel-nft.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: barrel-token206
+            contract-name: barrel-token224
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\barrel-token.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: batch-registry206
+            contract-name: batch-registry221
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\batch-registry.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: governance-token206
+            contract-name: governance-token224
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\governance-token.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: presale206
+            contract-name: presale224
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\presale.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: production-batch206
+            contract-name: production-batch224
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\production-batch.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: public-sale206
+            contract-name: public-sale224
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\public-sale.clar"
             clarity-version: 1
         - emulated-contract-publish:
-            contract-name: treasury206
+            contract-name: treasury224
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: "contracts\\treasury.clar"
             clarity-version: 1

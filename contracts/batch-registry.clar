@@ -6,7 +6,6 @@
 (define-constant ERR-BATCH-EXISTS u102)
 (define-constant ERR-BATCH-NOT-FOUND u103)
 (define-constant ERR-BARREL-ALREADY-REGISTERED u104)
-(define-constant ERR-BARREL-NOT-FOUND u105)
 (define-constant ERR-INVALID-PARAMS u106)
 
 (define-data-var contract-owner principal tx-sender)
